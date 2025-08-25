@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
+import { toast } from 'react-toastify';
 
 // Import des images
 import logo from './assets/images/1.png';
@@ -33,15 +34,9 @@ import uaeFlag from './assets/images/uae.png';
 const Plane = ({ className }) => (
   <svg 
     className={className}
-    xmlns="http://www.w3.org/2000/svg" 
-    viewBox="0 0 24 24" 
-    fill="none" 
-    stroke="currentColor" 
-    strokeWidth="2" 
-    strokeLinecap="round" 
-    strokeLinejoin="round"
+   
   >
-    <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"></path>
+    <path fill="currentColor" d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19L8 20.5V22l4-1 4 1v-1.5L13 19v-5.5l8 2.5z" />
   </svg>
 );
 
@@ -70,11 +65,11 @@ const countriesData = [
 ];
 
 const continentIcons = {
-  'Afrique': '🌍',
-  'Europe': '🏰',
-  'Amérique du Nord': '🗽',
-  'Asie': '🏯',
-  'Moyen-Orient': '🕌',
+  'Afrique': '',
+  'Europe': '',
+  'Amérique du Nord': '',
+  'Asie': '',
+  'Moyen-Orient': '',
 };
 
 // Données des témoignages
@@ -84,28 +79,24 @@ const testimonialsData = [
     location: "Casablanca, Maroc",
     rating: 5,
     text: "Un voyage extraordinaire ! L'équipe de Jess Voyages a organisé chaque détail de notre séjour à Paris. Service impeccable et prix très compétitifs.",
-    image: "👩‍💼"
   },
   {
     name: "Ahmed Diallo",
     location: "Dakar, Sénégal",
     rating: 5,
     text: "Grâce à Jess Voyages, j'ai pu découvrir les merveilles de Dubaï. Une expérience inoubliable avec un accompagnement de qualité du début à la fin.",
-    image: "👨‍💻"
   },
   {
     name: "Fatima Kone",
     location: "Abidjan, Côte d'Ivoire",
     rating: 5,
     text: "Excellent service ! Notre voyage en famille aux États-Unis s'est déroulé parfaitement. Je recommande vivement leurs services professionnels.",
-    image: "👩‍🏫"
   },
   {
     name: "Mohamed El Fassi",
     location: "Marrakech, Maroc",
     rating: 4,
     text: "Service de qualité et équipe très réactive. Notre voyage d'affaires à Londres a été organisé avec beaucoup de professionnalisme.",
-    image: "👨‍💼"
   }
 ];
 
@@ -130,6 +121,7 @@ const Navigation = () => {
       <nav className="nav">
         <div className="nav-brand">
           <img src={logo} alt="Logo Jess Voyages" className="nav-logo-img" />
+          <span className="nav-brand-name">Jess Voyages</span>
         </div>
         
         <div className={`nav-links ${isMenuOpen ? 'nav-links-open' : ''}`}>
@@ -219,17 +211,12 @@ const Header = ({ filteredCountries, filteredContinents, totalCities, onDiscover
   return (
     <div className="header-hero" style={{ backgroundImage: `url(${bgImages[currentBg]})` }}>
       <div className="header-overlay"></div>
-      <div className="header-bg-animation">
-        <div className="bg-slide bg-slide-1" style={{ backgroundImage: `url(${bgImages[0]})` }}></div>
-        <div className="bg-slide bg-slide-2" style={{ backgroundImage: `url(${bgImages[1]})` }}></div>
-        <div className="bg-slide bg-slide-3" style={{ backgroundImage: `url(${bgImages[2]})` }}></div>
-      </div>
       
       <Navigation />
       
       <div className="header-content">
         <div className="header-title">
-          <div className="globe-icon">🌍</div>
+          <div className="globe-icon"></div>
           <h1>Jess Voyages</h1>
         </div>
         
@@ -246,14 +233,14 @@ const Header = ({ filteredCountries, filteredContinents, totalCities, onDiscover
             Découvrir nos destinations
           </button>
           <button className="reserve-header-btn" onClick={onReservationClick}>
-            ✈️ Réserver un billet
+            Réserver un billet
           </button>
         </div>
         
         <div className="stats-container">
           <div className="stat-card">
             <div className="stat-content">
-              <div className="stat-icon">🌍</div>
+              <div className="stat-icon"></div>
               <div className="stat-info">
                 <div className="stat-number">{filteredCountries.length}</div>
                 <div className="stat-label">Pays</div>
@@ -262,7 +249,7 @@ const Header = ({ filteredCountries, filteredContinents, totalCities, onDiscover
           </div>
           <div className="stat-card">
             <div className="stat-content">
-              <div className="stat-icon">📍</div>
+              <div className="stat-icon"></div>
               <div className="stat-info">
                 <div className="stat-number">{totalCities}</div>
                 <div className="stat-label">Villes</div>
@@ -271,7 +258,7 @@ const Header = ({ filteredCountries, filteredContinents, totalCities, onDiscover
           </div>
           <div className="stat-card">
             <div className="stat-content">
-              <div className="stat-icon">👥</div>
+              <div className="stat-icon"></div>
               <div className="stat-info">
                 <div className="stat-number">{filteredContinents.length}</div>
                 <div className="stat-label">Continents</div>
@@ -280,7 +267,7 @@ const Header = ({ filteredCountries, filteredContinents, totalCities, onDiscover
           </div>
           <div className="stat-card">
             <div className="stat-content">
-              <div className="stat-icon">⭐</div>
+              <div className="stat-icon"></div>
               <div className="stat-info">
                 <div className="stat-number">15+</div>
                 <div className="stat-label">Années d'expérience</div>
@@ -348,7 +335,7 @@ const CountryCard = ({ country, index, onReservationClick }) => {
           </div>
           <h3 className="country-name">{country.name}</h3>
           <div className="country-info">
-            <span className="city-count">📍 {country.cities.length} ville{country.cities.length > 1 ? 's' : ''}</span>
+            <span className="city-count"> {country.cities.length} ville{country.cities.length > 1 ? 's' : ''}</span>
           </div>
         </div>
       </div>
@@ -368,10 +355,10 @@ const CountryCard = ({ country, index, onReservationClick }) => {
       </div>
       <div className="country-footer">
         <button 
-          className="reserve-country-btns"
+          className="reserve-country-btn"
           onClick={() => onReservationClick(country.name)}
         >
-          ✈️ Réserver un billet pour {country.name}
+           Réserver un billet pour {country.name}
         </button>
       </div>
     </div>
@@ -381,8 +368,8 @@ const CountryCard = ({ country, index, onReservationClick }) => {
 // Composant ContinentSection
 const ContinentSection = ({ continent, continentCountries, onReservationClick }) => {
   return (
-    <div key={continent} className="continent-sections">
-      <div className="continent-headers">
+    <div key={continent} className="continent-section">
+      <div className="continent-header">
         <div className="continent-title">
           <span className="continent-icon">{continentIcons[continent]}</span>
           <h2>{continent}</h2>
@@ -447,7 +434,7 @@ const About = () => {
         <div className="about-header">
           <h2>À propos de Jess Voyages</h2>
           <div className="about-subtitle">
-            <span className="about-icon">✈️</span>
+            <span className="about-icon"></span>
             Votre partenaire de confiance depuis plus de 15 ans
           </div>
         </div>
@@ -456,7 +443,7 @@ const About = () => {
           <div className="about-text">
             <div className="about-card">
               <div className="about-card-header">
-                <div className="about-card-icon">🌟</div>
+                <div className="about-card-icon"></div>
                 <h3>Notre Mission</h3>
               </div>
               <p>
@@ -467,7 +454,7 @@ const About = () => {
             
             <div className="about-card">
               <div className="about-card-header">
-                <div className="about-card-icon">🎯</div>
+                <div className="about-card-icon"></div>
                 <h3>Notre Vision</h3>
               </div>
               <p>
@@ -478,7 +465,7 @@ const About = () => {
             
             <div className="about-card">
               <div className="about-card-header">
-                <div className="about-card-icon">💎</div>
+                <div className="about-card-icon"></div>
                 <h3>Nos Valeurs</h3>
               </div>
               <p>
@@ -491,7 +478,7 @@ const About = () => {
           <div className="about-features">
             <div className="feature-grid">
               <div className="feature-item">
-                <div className="feature-icon">🏆</div>
+                <div className="feature-icon"></div>
                 <div className="feature-content">
                   <h4>15+ Années d'Expérience</h4>
                   <p>Une expertise reconnue dans l'industrie du voyage</p>
@@ -499,7 +486,7 @@ const About = () => {
               </div>
               
               <div className="feature-item">
-                <div className="feature-icon">🌍</div>
+                <div className="feature-icon"></div>
                 <div className="feature-content">
                   <h4>20 Pays Desservis</h4>
                   <p>Un réseau mondial pour vos destinations de rêve</p>
@@ -507,7 +494,7 @@ const About = () => {
               </div>
               
               <div className="feature-item">
-                <div className="feature-icon">👥</div>
+                <div className="feature-icon"></div>
                 <div className="feature-content">
                   <h4>50,000+ Clients Satisfaits</h4>
                   <p>Une communauté de voyageurs qui nous font confiance</p>
@@ -515,7 +502,7 @@ const About = () => {
               </div>
               
               <div className="feature-item">
-                <div className="feature-icon">⭐</div>
+                <div className="feature-icon"></div>
                 <div className="feature-content">
                   <h4>Service 24/7</h4>
                   <p>Un support disponible à tout moment</p>
@@ -543,14 +530,14 @@ const Testimonials = () => {
           {testimonialsData.map((testimonial, index) => (
             <div key={index} className="testimonial-card" style={{ animationDelay: `${index * 200}ms` }}>
               <div className="testimonial-header">
-                <div className="testimonial-avatar">{testimonial.image}</div>
+                <div className="testimonial-avatar">👤</div>
                 <div className="testimonial-info">
                   <h4>{testimonial.name}</h4>
                   <p>{testimonial.location}</p>
                 </div>
                 <div className="testimonial-rating">
                   {[...Array(testimonial.rating)].map((_, i) => (
-                    <span key={i} className="star">⭐</span>
+                    <span key={i} className="star"></span>
                   ))}
                 </div>
               </div>
@@ -566,7 +553,7 @@ const Testimonials = () => {
             <h3>Prêt pour votre prochaine aventure ?</h3>
             <p>Rejoignez des milliers de voyageurs satisfaits</p>
             <button className="cta-button">
-              🌍 Commencer mon voyage
+              Commencer mon voyage
             </button>
           </div>
         </div>
@@ -576,7 +563,9 @@ const Testimonials = () => {
 };
 
 // Composant ReservationModal
-const ReservationModal = ({ showReservationForm, setShowReservationForm, reservationData, setReservationData, handleReservationSubmit, selectedDestination }) => {
+const ReservationModal = ({ showReservationForm, setShowReservationForm, reservationData, setReservationData, selectedDestination }) => {
+  const [step, setStep] = useState(1);
+  
   if (!showReservationForm) return null;
 
   const handleInputChange = (e) => {
@@ -587,141 +576,236 @@ const ReservationModal = ({ showReservationForm, setShowReservationForm, reserva
     });
   };
 
+  const handleNextStep = () => {
+    setStep(2);
+  };
+
+  const handlePreviousStep = () => {
+    setStep(1);
+  };
+
+  const handleReservationSubmit = async (e) => {
+    e.preventDefault();
+    
+    try {
+      // Préparer les données pour l'API
+      const apiData = {
+        destination: reservationData.destination,
+        nom: reservationData.nom,
+        prenom: reservationData.prenom,
+        email: reservationData.email,
+        telephone: reservationData.telephone,
+        lieu_depart: reservationData.lieuDepart,
+        date_depart: reservationData.dateDepart,
+        date_retour: reservationData.dateRetour || null,
+        nombre_passagers: parseInt(reservationData.nombrePassagers),
+        classe: reservationData.classe
+      };
+
+      // Envoyer les données à l'API
+      const response = await fetch('http://localhost:5000/api/reservations/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(apiData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Erreur lors de la réservation');
+      }
+
+      const result = await response.json();
+
+      // Toast de succès
+      toast.success(' Réservation confirmée avec succès!');
+
+      // Réinitialiser le formulaire
+      setReservationData({
+        destination: selectedDestination || '',
+        nom: '',
+        prenom: '',
+        email: '',
+        telephone: '',
+        lieuDepart: '',
+        dateDepart: '',
+        dateRetour: '',
+        nombrePassagers: 1,
+        classe: 'Economique'
+      });
+
+      // Fermer le modal après un délai
+      setTimeout(() => {
+        setShowReservationForm(false);
+        setStep(1);
+      }, 2000);
+
+    } catch (error) {
+      console.error('Erreur:', error);
+      
+      // Toast d'erreur
+      toast.error(`❌ ${error.message}`);
+    }
+  };
+
   return (
     <div className="modal-overlay">
       <div className="reservation-modal">
-        <div className="modal-headerss">
+        <div className="modal-header">
           <h2>Réserver votre billet</h2>
-          <button className="close-modal" onClick={() => setShowReservationForm(false)}>×</button>
+          <button className="close-modal" onClick={() => {setShowReservationForm(false); setStep(1);}}>×</button>
         </div>
+        
+        <div className="reservation-steps">
+          <div className={`step ${step === 1 ? 'active' : ''}`}>1. Destination</div>
+          <div className={`step ${step === 2 ? 'active' : ''}`}>2. Informations</div>
+        </div>
+        
         <form onSubmit={handleReservationSubmit} className="reservation-form">
-          <div className="form-group">
-            <label>Destination</label>
-            <input 
-              type="text" 
-              value={reservationData.destination} 
-              readOnly 
-              className="destination-field"
-            />
-          </div>
+          {step === 1 && (
+            <div className="form-step">
+              <div className="form-group">
+                <label>Destination *</label>
+                <input 
+                  type="text" 
+                  value={reservationData.destination} 
+                  className="destination-field"
+                />
+              </div>
+              
+              <div className="form-group">
+                <label>Lieu de départ *</label>
+                <input 
+                  type="text" 
+                  name="lieuDepart"
+                  value={reservationData.lieuDepart} 
+                  onChange={handleInputChange}
+                  placeholder="Ex: Casablanca, Maroc"
+                  required 
+                />
+              </div>
+              
+              <div className="form-row">
+                <div className="form-group">
+                  <label>Date de départ *</label>
+                  <input 
+                    type="date" 
+                    name="dateDepart"
+                    value={reservationData.dateDepart} 
+                    onChange={handleInputChange}
+                    required 
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Date de retour</label>
+                  <input 
+                    type="date" 
+                    name="dateRetour"
+                    value={reservationData.dateRetour} 
+                    onChange={handleInputChange}
+                  />
+                </div>
+              </div>
+              
+              <div className="form-actions">
+                <button type="button" onClick={() => setShowReservationForm(false)} className="cancel-btn">
+                  Annuler
+                </button>
+                <button type="button" onClick={handleNextStep} className="next-btn">
+                  Continuer
+                </button>
+              </div>
+            </div>
+          )}
           
-          <div className="form-row">
-            <div className="form-group">
-              <label>Nom *</label>
-              <input 
-                type="text" 
-                name="nom"
-                value={reservationData.nom} 
-                onChange={handleInputChange}
-                required 
-              />
+          {step === 2 && (
+            <div className="form-step">
+              <div className="form-row">
+                <div className="form-group">
+                  <label>Nom *</label>
+                  <input 
+                    type="text" 
+                    name="nom"
+                    value={reservationData.nom} 
+                    onChange={handleInputChange}
+                    required 
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Prénom *</label>
+                  <input 
+                    type="text" 
+                    name="prenom"
+                    value={reservationData.prenom} 
+                    onChange={handleInputChange}
+                    required 
+                  />
+                </div>
+              </div>
+              
+              <div className="form-row">
+                <div className="form-group">
+                  <label>Email *</label>
+                  <input 
+                    type="email" 
+                    name="email"
+                    value={reservationData.email} 
+                    onChange={handleInputChange}
+                    required 
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Téléphone *</label>
+                  <input 
+                    type="tel" 
+                    name="telephone"
+                    value={reservationData.telephone} 
+                    onChange={handleInputChange}
+                    required 
+                  />
+                </div>
+              </div>
+              
+              <div className="form-row">
+                <div className="form-group">
+                  <label>Nombre de passagers *</label>
+                  <select 
+                    name="nombrePassagers"
+                    value={reservationData.nombrePassagers} 
+                    onChange={handleInputChange}
+                    required
+                  >
+                    {[1, 2, 3, 4, 5, 6, 7, 8].map(num => (
+                      <option key={num} value={num}>{num}</option>
+                    ))}
+                  </select>
+                </div>
+                <div className="form-group">
+                  <label>Classe *</label>
+                  <select 
+                    name="classe"
+                    value={reservationData.classe} 
+                    onChange={handleInputChange}
+                    required
+                  >
+                    <option value="Economique">Économique</option>
+                    <option value="Affaires">Affaires</option>
+                    <option value="Premiere">Première</option>
+                  </select>
+                </div>
+              </div>
+              
+              <div className="form-actions">
+                <button type="button" onClick={handlePreviousStep} className="previous-btn">
+                  Retour
+                </button>
+                <button type="submit" className="submit-btn">
+                  Confirmer la réservation
+                </button>
+              </div>
             </div>
-            <div className="form-group">
-              <label>Prénom *</label>
-              <input 
-                type="text" 
-                name="prenom"
-                value={reservationData.prenom} 
-                onChange={handleInputChange}
-                required 
-              />
-            </div>
-          </div>
-          
-          <div className="form-row">
-            <div className="form-group">
-              <label>Email *</label>
-              <input 
-                type="email" 
-                name="email"
-                value={reservationData.email} 
-                onChange={handleInputChange}
-                required 
-              />
-            </div>
-            <div className="form-group">
-              <label>Téléphone *</label>
-              <input 
-                type="tel" 
-                name="telephone"
-                value={reservationData.telephone} 
-                onChange={handleInputChange}
-                required 
-              />
-            </div>
-          </div>
-          
-          <div className="form-group">
-            <label>Lieu de départ *</label>
-            <input 
-              type="text" 
-              name="lieuDepart"
-              value={reservationData.lieuDepart} 
-              onChange={handleInputChange}
-              placeholder="Ex: Casablanca, Maroc"
-              required 
-            />
-          </div>
-          
-          <div className="form-row">
-            <div className="form-group">
-              <label>Date de départ *</label>
-              <input 
-                type="date" 
-                name="dateDepart"
-                value={reservationData.dateDepart} 
-                onChange={handleInputChange}
-                required 
-              />
-            </div>
-            <div className="form-group">
-              <label>Date de retour</label>
-              <input 
-                type="date" 
-                name="dateRetour"
-                value={reservationData.dateRetour} 
-                onChange={handleInputChange}
-              />
-            </div>
-          </div>
-          
-          <div className="form-row">
-            <div className="form-group">
-              <label>Nombre de passagers *</label>
-              <select 
-                name="nombrePassagers"
-                value={reservationData.nombrePassagers} 
-                onChange={handleInputChange}
-                required
-              >
-                {[1, 2, 3, 4, 5, 6, 7, 8].map(num => (
-                  <option key={num} value={num}>{num}</option>
-                ))}
-              </select>
-            </div>
-            <div className="form-group">
-              <label>Classe *</label>
-              <select 
-                name="classe"
-                value={reservationData.classe} 
-                onChange={handleInputChange}
-                required
-              >
-                <option value="Economique">Économique</option>
-                <option value="Affaires">Affaires</option>
-                <option value="Premiere">Première</option>
-              </select>
-            </div>
-          </div>
-          
-          <div className="form-actions">
-            <button type="button" onClick={() => setShowReservationForm(false)} className="cancel-btn">
-              Annuler
-            </button>
-            <button type="submit" className="submit-btn">
-              ✈️ Confirmer la réservation
-            </button>
-          </div>
+          )}
         </form>
       </div>
     </div>
@@ -796,22 +880,22 @@ const Footer = ({ countries, continents }) => {
         
         <div className="voyage-stats">
           <div className="stat-item">
-            <div className="stat-icon">🌍</div>
+            <div className="stat-icon"></div>
             <div className="stat-number">{countries.length}</div>
             <div className="stat-label">pays</div>
           </div>
           <div className="stat-item">
-            <div className="stat-icon">📍</div>
+            <div className="stat-icon"></div>
             <div className="stat-number">{totalCities}</div>
             <div className="stat-label">villes</div>
           </div>
           <div className="stat-item">
-            <div className="stat-icon">🏛️</div>
+            <div className="stat-icon"></div>
             <div className="stat-number">{continents.length}</div>
             <div className="stat-label">continents</div>
           </div>
           <div className="stat-item">
-            <div className="stat-icon">⭐</div>
+            <div className="stat-icon"></div>
             <div className="stat-number">15+</div>
             <div className="stat-label">années</div>
           </div>
@@ -885,24 +969,6 @@ const App = () => {
     setShowReservationForm(true);
   };
 
-  const handleReservationSubmit = (e) => {
-    e.preventDefault();
-    alert(`Réservation confirmée pour ${reservationData.prenom} ${reservationData.nom} vers ${reservationData.destination} au départ de ${reservationData.lieuDepart}`);
-    setShowReservationForm(false);
-    setReservationData({
-      nom: '',
-      prenom: '',
-      email: '',
-      telephone: '',
-      lieuDepart: '',
-      dateDepart: '',
-      dateRetour: '',
-      nombrePassagers: 1,
-      classe: 'Economique',
-      destination: ''
-    });
-  };
-
   const handleDiscoverClick = () => {
     const searchContainer = document.querySelector('.search-container');
     if (searchContainer) {
@@ -920,7 +986,6 @@ const App = () => {
         onReservationClick={() => setShowReservationForm(true)}
       />
       <About />
-
       
       <SearchAndFilters 
         searchTerm={searchTerm}
@@ -936,7 +1001,6 @@ const App = () => {
         onReservationClick={handleReservationClick}
       />
       
-      
       <Testimonials />
       
       <ReservationModal 
@@ -944,7 +1008,6 @@ const App = () => {
         setShowReservationForm={setShowReservationForm}
         reservationData={reservationData}
         setReservationData={setReservationData}
-        handleReservationSubmit={handleReservationSubmit}
         selectedDestination={selectedDestination}
       />
       
