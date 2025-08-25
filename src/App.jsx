@@ -1,8 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
-import logo from './assets/images/1.png';
 
-// Import des drapeaux - chemins corrigés
+// Import des images
+import logo from './assets/images/1.png';
+import hero1 from './assets/images/WhatsApp Image 2025-08-25 à 01.27.45_5f769776.jpg';
+import hero2 from './assets/images/WhatsApp Image 2025-08-25 à 01.27.46_0a577508.jpg';
+import hero3 from './assets/images/WhatsApp Image 2025-08-25 à 01.27.46_e1c29759.jpg';
+
+// Import des drapeaux
 import moroccoFlag from './assets/images/flag.png';
 import senegalFlag from './assets/images/senegal-flag.png';
 import cotedivoireFlag from './assets/images/coast.png';
@@ -140,7 +145,6 @@ const Navigation = () => {
           <a href="#contact" className="nav-link" onClick={() => scrollToSection('contact')}>
             Contact
           </a>
-         
         </div>
 
         <button className={`mobile-menu-button ${isMenuOpen ? 'active' : ''}`} onClick={toggleMenu}>
@@ -153,20 +157,88 @@ const Navigation = () => {
   );
 };
 
-// Composant Header
+// Composant Header avec machine à écrire
 const Header = ({ filteredCountries, filteredContinents, totalCities, onDiscoverClick, onReservationClick }) => {
+  const [currentText, setCurrentText] = useState('');
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [typingSpeed, setTypingSpeed] = useState(150);
+  const [textIndex, setTextIndex] = useState(0);
+  
+  const texts = [
+    "Votre partenaire de confiance pour découvrir le monde.",
+    "Des destinations exceptionnelles, un service premium.",
+    "Voyagez avec style et élégance."
+  ];
+
+  useEffect(() => {
+    const current = textIndex % texts.length;
+    const fullText = texts[current];
+
+    const handleTyping = () => {
+      if (isDeleting) {
+        // Effacer le texte
+        if (currentText === '') {
+          setIsDeleting(false);
+          setTextIndex((prev) => (prev + 1) % texts.length);
+          setTypingSpeed(500);
+          return;
+        }
+        
+        setCurrentText(fullText.substring(0, currentText.length - 1));
+        setTypingSpeed(typingSpeed / 1.5);
+      } else {
+        // Écrire le texte
+        if (currentText === fullText) {
+          setTypingSpeed(2000);
+          setIsDeleting(true);
+          return;
+        }
+        
+        setCurrentText(fullText.substring(0, currentText.length + 1));
+        setTypingSpeed(150);
+      }
+    };
+
+    const timer = setTimeout(handleTyping, typingSpeed);
+    return () => clearTimeout(timer);
+  }, [currentText, isDeleting, textIndex, texts, typingSpeed]);
+
+  // Animation des images d'arrière-plan
+  const [currentBg, setCurrentBg] = useState(0);
+  const bgImages = [hero1, hero2, hero3];
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentBg((prev) => (prev + 1) % bgImages.length);
+    }, 5000);
+    
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <div className="header-hero">
-      <Navigation />
+    <div className="header-hero" style={{ backgroundImage: `url(${bgImages[currentBg]})` }}>
       <div className="header-overlay"></div>
+      <div className="header-bg-animation">
+        <div className="bg-slide bg-slide-1" style={{ backgroundImage: `url(${bgImages[0]})` }}></div>
+        <div className="bg-slide bg-slide-2" style={{ backgroundImage: `url(${bgImages[1]})` }}></div>
+        <div className="bg-slide bg-slide-3" style={{ backgroundImage: `url(${bgImages[2]})` }}></div>
+      </div>
+      
+      <Navigation />
+      
       <div className="header-content">
         <div className="header-title">
           <div className="globe-icon">🌍</div>
           <h1>Jess Voyages</h1>
         </div>
-        <p className="header-description">
-          Votre partenaire de confiance pour découvrir le monde. Des destinations exceptionnelles, un service premium.
-        </p>
+        
+        <div className="typewriter-container">
+          <p className="header-description typewriter-text">
+            {currentText}
+            <span className="typewriter-cursor">|</span>
+          </p>
+        </div>
         
         <div className="header-buttons">
           <button className="discover-btn" onClick={onDiscoverClick}>
@@ -196,7 +268,7 @@ const Header = ({ filteredCountries, filteredContinents, totalCities, onDiscover
                 <div className="stat-label">Villes</div>
               </div>
             </div>
-  </div>
+          </div>
           <div className="stat-card">
             <div className="stat-content">
               <div className="stat-icon">👥</div>
@@ -661,101 +733,100 @@ const Footer = ({ countries, continents }) => {
   const totalCities = countries.reduce((sum, c) => sum + c.cities.length, 0);
   
   return (
-    <footer class="voyage-footer" id="contact">
-    <div class="voyage-container">
-        <div class="voyage-content">
-            <div class="voyage-brand">
-                <img src="https://via.placeholder.com/160x60?text=Jess+Voyages" alt="Logo Jess Voyages" class="voyage-logo" />
-                <h3>Jess Voyages</h3>
-                <p>Votre partenaire de confiance pour découvrir le monde. Nous vous accompagnons dans toutes vos aventures à travers la planète.</p>
-                <div class="social-links">
-                    <a href="https://www.facebook.com/" class="social-link facebook" aria-label="Facebook" target="_blank">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a href="https://www.instagram.com/" class="social-link instagram" aria-label="Instagram" target="_blank">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <a href="https://twitter.com/" class="social-link twitter" aria-label="Twitter" target="_blank">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                    <a href="https://www.linkedin.com/" class="social-link linkedin" aria-label="LinkedIn" target="_blank">
-                        <i class="fab fa-linkedin-in"></i>
-                    </a>
-                    <a href="https://www.youtube.com/" class="social-link youtube" aria-label="YouTube" target="_blank">
-                        <i class="fab fa-youtube"></i>
-                    </a>
-                </div>
+    <footer className="voyage-footer" id="contact">
+      <div className="voyage-container">
+        <div className="voyage-content">
+          <div className="voyage-brand">
+            <img src={logo} alt="Logo Jess Voyages" className="voyage-logo" />
+            <h3>Jess Voyages</h3>
+            <p>Votre partenaire de confiance pour découvrir le monde. Nous vous accompagnons dans toutes vos aventures à travers la planète.</p>
+            <div className="social-links">
+              <a href="https://www.facebook.com/" className="social-link facebook" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+                <i className="fab fa-facebook-f"></i>
+              </a>
+              <a href="https://www.instagram.com/" className="social-link instagram" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+                <i className="fab fa-instagram"></i>
+              </a>
+              <a href="https://twitter.com/" className="social-link twitter" aria-label="Twitter" target="_blank" rel="noopener noreferrer">
+                <i className="fab fa-twitter"></i>
+              </a>
+              <a href="https://www.linkedin.com/" className="social-link linkedin" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+                <i className="fab fa-linkedin-in"></i>
+              </a>
+              <a href="https://www.youtube.com/" className="social-link youtube" aria-label="YouTube" target="_blank" rel="noopener noreferrer">
+                <i className="fab fa-youtube"></i>
+              </a>
             </div>
-            
-            <div class="voyage-section">
-                <h4>Nos Services</h4>
-                <ul>
-                    <li>Billets d'avion</li>
-                    <li>Réservation d'hôtels</li>
-                    <li>Forfaits voyage</li>
-                    <li>Visa et formalités</li>
-                    <li>Location de voitures</li>
-                    <li>Assurance voyage</li>
-                </ul>
+          </div>
+          
+          <div className="voyage-section">
+            <h4>Nos Services</h4>
+            <ul>
+              <li>Billets d'avion</li>
+              <li>Réservation d'hôtels</li>
+              <li>Forfaits voyage</li>
+              <li>Visa et formalités</li>
+              <li>Location de voitures</li>
+              <li>Assurance voyage</li>
+            </ul>
+          </div>
+          
+          <div className="voyage-section">
+            <h4>Destinations Populaires</h4>
+            <ul>
+              <li>Paris, France</li>
+              <li>Dubaï, EAU</li>
+              <li>New York, USA</li>
+              <li>Londres, UK</li>
+              <li>Tokyo, Japon</li>
+              <li>Bali, Indonésie</li>
+            </ul>
+          </div>
+          
+          <div className="voyage-section">
+            <h4>Contact</h4>
+            <div className="contact-info">
+              <p><i className="fas fa-phone"></i> +212 5XX-XXX-XXX</p>
+              <p><i className="fas fa-envelope"></i> contact@jessvoyages.com</p>
+              <p><i className="fas fa-map-marker-alt"></i> Casablanca, Maroc</p>
+              <p><i className="fas fa-clock"></i> Lun-Ven: 9h-18h | Sam: 10h-16h</p>
             </div>
-            
-            <div class="voyage-section">
-                <h4>Destinations Populaires</h4>
-                <ul>
-                    <li>Paris, France</li>
-                    <li>Dubaï, EAU</li>
-                    <li>New York, USA</li>
-                    <li>Londres, UK</li>
-                    <li>Tokyo, Japon</li>
-                    <li>Bali, Indonésie</li>
-                </ul>
-            </div>
-            
-            <div class="voyage-section">
-                <h4>Contact</h4>
-                <div class="contact-info">
-                    <p><i class="fas fa-phone"></i> +212 5XX-XXX-XXX</p>
-                    <p><i class="fas fa-envelope"></i> contact@jessvoyages.com</p>
-                    <p><i class="fas fa-map-marker-alt"></i> Casablanca, Maroc</p>
-                    <p><i class="fas fa-clock"></i> Lun-Ven: 9h-18h | Sam: 10h-16h</p>
-                </div>
-            </div>
+          </div>
         </div>
         
-        <div class="voyage-stats">
-            <div class="stat-item">
-                <div class="stat-icon">🌍</div>
-                <div class="stat-number">85</div>
-                <div class="stat-label">pays</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-icon">📍</div>
-                <div class="stat-number">320</div>
-                <div class="stat-label">villes</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-icon">🏛️</div>
-                <div class="stat-number">7</div>
-                <div class="stat-label">continents</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-icon">⭐</div>
-                <div class="stat-number">15+</div>
-                <div class="stat-label">années</div>
-            </div>
+        <div className="voyage-stats">
+          <div className="stat-item">
+            <div className="stat-icon">🌍</div>
+            <div className="stat-number">{countries.length}</div>
+            <div className="stat-label">pays</div>
+          </div>
+          <div className="stat-item">
+            <div className="stat-icon">📍</div>
+            <div className="stat-number">{totalCities}</div>
+            <div className="stat-label">villes</div>
+          </div>
+          <div className="stat-item">
+            <div className="stat-icon">🏛️</div>
+            <div className="stat-number">{continents.length}</div>
+            <div className="stat-label">continents</div>
+          </div>
+          <div className="stat-item">
+            <div className="stat-icon">⭐</div>
+            <div className="stat-number">15+</div>
+            <div className="stat-label">années</div>
+          </div>
         </div>
         
-        <div class="voyage-bottom">
-            <p class="voyage-copyright">&copy; 2024 Jess Voyages. Tous droits réservés.</p>
-            <div class="voyage-links">
-                <a href="#privacy">Politique de confidentialité</a>
-                <a href="#terms">Conditions d'utilisation</a>
-                <a href="#cookies">Préférences de cookies</a>
-            </div>
+        <div className="voyage-bottom">
+          <p className="voyage-copyright">&copy; 2024 Jess Voyages. Tous droits réservés.</p>
+          <div className="voyage-links">
+            <a href="#privacy">Politique de confidentialité</a>
+            <a href="#terms">Conditions d'utilisation</a>
+            <a href="#cookies">Préférences de cookies</a>
+          </div>
         </div>
-    </div>
-</footer>
-
+      </div>
+    </footer>
   );
 };
 
