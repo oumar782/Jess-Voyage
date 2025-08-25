@@ -1,6 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import logo from '../src/assets/images/1.png';
+import logo from './assets/images/1.png';
+
+// Import des drapeaux - chemins corrigés
+import moroccoFlag from './assets/images/flag.png';
+import senegalFlag from './assets/images/senegal-flag.png';
+import cotedivoireFlag from './assets/images/coast.png';
+import maliFlag from './assets/images/mali.png';
+import ghanaFlag from './assets/images/ghana.png';
+import nigeriaFlag from './assets/images/nigeria.png';
+import ethiopiaFlag from './assets/images/ethiopie.png';
+import southafricaFlag from './assets/images/south-africa.png';
+import guineabissauFlag from './assets/images/guinea-bissau.png';
+import franceFlag from './assets/images/france.png';
+import belgiumFlag from './assets/images/belgium.png';
+import italyFlag from './assets/images/italy.png';
+import spainFlag from './assets/images/spain.png';
+import germanyFlag from './assets/images/germany.png';
+import englandFlag from './assets/images/england.png';
+import usaFlag from './assets/images/united-states.png';
+import canadaFlag from './assets/images/canada.png';
+import turkeyFlag from './assets/images/turkey.png';
+import chinaFlag from './assets/images/china.png';
+import uaeFlag from './assets/images/uae.png';
+
 // Icône d'avion pour la navigation (composant SVG)
 const Plane = ({ className }) => (
   <svg 
@@ -17,28 +40,28 @@ const Plane = ({ className }) => (
   </svg>
 );
 
-// Données des pays
+// Données des pays avec les drapeaux
 const countriesData = [
-  { name: 'Maroc', cities: ['Casablanca', 'Marrakech', 'Rabat', 'Agadir'], continent: 'Afrique', flag: '🇲🇦', population: '37M' },
-  { name: 'Sénégal', cities: ['Dakar'], continent: 'Afrique', flag: '🇸🇳', population: '17M' },
-  { name: 'Côte d\'Ivoire', cities: ['Abidjan'], continent: 'Afrique', flag: '🇨🇮', population: '27M' },
-  { name: 'Mali', cities: ['Bamako'], continent: 'Afrique', flag: '🇲🇱', population: '21M' },
-  { name: 'Ghana', cities: ['Accra'], continent: 'Afrique', flag: '🇬🇭', population: '32M' },
-  { name: 'Nigéria', cities: ['Lagos', 'Abuja'], continent: 'Afrique', flag: '🇳🇬', population: '218M' },
-  { name: 'Éthiopie', cities: ['Addis-Abeba'], continent: 'Afrique', flag: '🇪🇹', population: '120M' },
-  { name: 'Afrique du Sud', cities: ['Johannesburg', 'Cape Town'], continent: 'Afrique', flag: '🇿🇦', population: '60M' },
-  { name: 'Guinée-Bissau', cities: ['Bissau'], continent: 'Afrique', flag: '🇬🇼', population: '2M' },
-  { name: 'France', cities: ['Paris', 'Lyon', 'Marseille'], continent: 'Europe', flag: '🇫🇷', population: '68M' },
-  { name: 'Belgique', cities: ['Bruxelles'], continent: 'Europe', flag: '🇧🇪', population: '11M' },
-  { name: 'Italie', cities: ['Rome', 'Milan'], continent: 'Europe', flag: '🇮🇹', population: '59M' },
-  { name: 'Espagne', cities: ['Barcelone', 'Madrid'], continent: 'Europe', flag: '🇪🇸', population: '47M' },
-  { name: 'Allemagne', cities: ['Berlin', 'Francfort'], continent: 'Europe', flag: '🇩🇪', population: '83M' },
-  { name: 'Angleterre', cities: ['Londres'], continent: 'Europe', flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿', population: '56M' },
-  { name: 'États-Unis', cities: ['New York', 'Washington', 'Atlanta'], continent: 'Amérique du Nord', flag: '🇺🇸', population: '331M' },
-  { name: 'Canada', cities: ['Montréal', 'Toronto'], continent: 'Amérique du Nord', flag: '🇨🇦', population: '38M' },
-  { name: 'Turquie', cities: ['Istanbul'], continent: 'Asie', flag: '🇹🇷', population: '84M' },
-  { name: 'Chine', cities: ['Pékin', 'Guangzhou'], continent: 'Asie', flag: '🇨🇳', population: '1.4B' },
-  { name: 'Émirats Arabes Unis', cities: ['Dubaï', 'Abou Dhabi'], continent: 'Moyen-Orient', flag: '🇦🇪', population: '10M' },
+  { name: 'Maroc', cities: ['Casablanca', 'Marrakech', 'Rabat', 'Agadir'], continent: 'Afrique', flag: moroccoFlag, population: '37M' },
+  { name: 'Sénégal', cities: ['Dakar'], continent: 'Afrique', flag: senegalFlag, population: '17M' },
+  { name: 'Côte d\'Ivoire', cities: ['Abidjan'], continent: 'Afrique', flag: cotedivoireFlag, population: '27M' },
+  { name: 'Mali', cities: ['Bamako'], continent: 'Afrique', flag: maliFlag, population: '21M' },
+  { name: 'Ghana', cities: ['Accra'], continent: 'Afrique', flag: ghanaFlag, population: '32M' },
+  { name: 'Nigéria', cities: ['Lagos', 'Abuja'], continent: 'Afrique', flag: nigeriaFlag, population: '218M' },
+  { name: 'Éthiopie', cities: ['Addis-Abeba'], continent: 'Afrique', flag: ethiopiaFlag, population: '120M' },
+  { name: 'Afrique du Sud', cities: ['Johannesburg', 'Cape Town'], continent: 'Afrique', flag: southafricaFlag, population: '60M' },
+  { name: 'Guinée-Bissau', cities: ['Bissau'], continent: 'Afrique', flag: guineabissauFlag, population: '2M' },
+  { name: 'France', cities: ['Paris', 'Lyon', 'Marseille'], continent: 'Europe', flag: franceFlag, population: '68M' },
+  { name: 'Belgique', cities: ['Bruxelles'], continent: 'Europe', flag: belgiumFlag, population: '11M' },
+  { name: 'Italie', cities: ['Rome', 'Milan'], continent: 'Europe', flag: italyFlag, population: '59M' },
+  { name: 'Espagne', cities: ['Barcelone', 'Madrid'], continent: 'Europe', flag: spainFlag, population: '47M' },
+  { name: 'Allemagne', cities: ['Berlin', 'Francfort'], continent: 'Europe', flag: germanyFlag, population: '83M' },
+  { name: 'Angleterre', cities: ['Londres'], continent: 'Europe', flag: englandFlag, population: '56M' },
+  { name: 'États-Unis', cities: ['New York', 'Washington', 'Atlanta'], continent: 'Amérique du Nord', flag: usaFlag, population: '331M' },
+  { name: 'Canada', cities: ['Montréal', 'Toronto'], continent: 'Amérique du Nord', flag: canadaFlag, population: '38M' },
+  { name: 'Turquie', cities: ['Istanbul'], continent: 'Asie', flag: turkeyFlag, population: '84M' },
+  { name: 'Chine', cities: ['Pékin', 'Guangzhou'], continent: 'Asie', flag: chinaFlag, population: '1.4B' },
+  { name: 'Émirats Arabes Unis', cities: ['Dubaï', 'Abou Dhabi'], continent: 'Moyen-Orient', flag: uaeFlag, population: '10M' },
 ];
 
 const continentIcons = {
@@ -49,6 +72,38 @@ const continentIcons = {
   'Moyen-Orient': '🕌',
 };
 
+// Données des témoignages
+const testimonialsData = [
+  {
+    name: "Sarah Benali",
+    location: "Casablanca, Maroc",
+    rating: 5,
+    text: "Un voyage extraordinaire ! L'équipe de Jess Voyages a organisé chaque détail de notre séjour à Paris. Service impeccable et prix très compétitifs.",
+    image: "👩‍💼"
+  },
+  {
+    name: "Ahmed Diallo",
+    location: "Dakar, Sénégal",
+    rating: 5,
+    text: "Grâce à Jess Voyages, j'ai pu découvrir les merveilles de Dubaï. Une expérience inoubliable avec un accompagnement de qualité du début à la fin.",
+    image: "👨‍💻"
+  },
+  {
+    name: "Fatima Kone",
+    location: "Abidjan, Côte d'Ivoire",
+    rating: 5,
+    text: "Excellent service ! Notre voyage en famille aux États-Unis s'est déroulé parfaitement. Je recommande vivement leurs services professionnels.",
+    image: "👩‍🏫"
+  },
+  {
+    name: "Mohamed El Fassi",
+    location: "Marrakech, Maroc",
+    rating: 4,
+    text: "Service de qualité et équipe très réactive. Notre voyage d'affaires à Londres a été organisé avec beaucoup de professionnalisme.",
+    image: "👨‍💼"
+  }
+];
+
 // Composant Navigation
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -57,36 +112,44 @@ const Navigation = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  return (
-    <header class="header-nav">
-    <nav class="nav">
-    <div className="nav-brand">
-  <img src={logo} alt="Logo Jess Voyages" className="nav-logo-img" />
-</div>
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+    setIsMenuOpen(false);
+  };
 
+  return (
+    <header className="header-nav">
+      <nav className="nav">
+        <div className="nav-brand">
+          <img src={logo} alt="Logo Jess Voyages" className="nav-logo-img" />
+        </div>
         
-        <div class="nav-links" id="navLinks">
-            <a href="#destinations" class="nav-link">
-                Destinations
-            </a>
-            <a href="#booking" class="nav-link">
-                Réserver
-            </a>
-            <a href="#testimonials" class="nav-link">
-                Témoignages
-            </a>
-            <button class="button button-outline nav-button">
-                Connexion
-            </button>
+        <div className={`nav-links ${isMenuOpen ? 'nav-links-open' : ''}`}>
+          <a href="#destinations" className="nav-link" onClick={() => scrollToSection('destinations')}>
+            Destinations
+          </a>
+          <a href="#about" className="nav-link" onClick={() => scrollToSection('about')}>
+            À propos
+          </a>
+          <a href="#testimonials" className="nav-link" onClick={() => scrollToSection('testimonials')}>
+            Témoignages
+          </a>
+          <a href="#contact" className="nav-link" onClick={() => scrollToSection('contact')}>
+            Contact
+          </a>
+         
         </div>
 
-        <button class="mobile-menu-button" onclick="toggleMenu()">
-            <span></span>
-            <span></span>
-            <span></span>
+        <button className={`mobile-menu-button ${isMenuOpen ? 'active' : ''}`} onClick={toggleMenu}>
+          <span></span>
+          <span></span>
+          <span></span>
         </button>
-    </nav>
-</header>
+      </nav>
+    </header>
   );
 };
 
@@ -99,18 +162,19 @@ const Header = ({ filteredCountries, filteredContinents, totalCities, onDiscover
       <div className="header-content">
         <div className="header-title">
           <div className="globe-icon">🌍</div>
-          <h1>Explorateur Mondial</h1>
+          <h1>Jess Voyages</h1>
         </div>
         <p className="header-description">
-          Découvrez les pays et villes du monde entier dans une interface moderne et interactive
+          Votre partenaire de confiance pour découvrir le monde. Des destinations exceptionnelles, un service premium.
         </p>
         
         <div className="header-buttons">
           <button className="discover-btn" onClick={onDiscoverClick}>
+            <Plane className="btn-icon" />
             Découvrir nos destinations
           </button>
           <button className="reserve-header-btn" onClick={onReservationClick}>
-            Réserver un billet
+            ✈️ Réserver un billet
           </button>
         </div>
         
@@ -132,13 +196,22 @@ const Header = ({ filteredCountries, filteredContinents, totalCities, onDiscover
                 <div className="stat-label">Villes</div>
               </div>
             </div>
-          </div>
+  </div>
           <div className="stat-card">
             <div className="stat-content">
               <div className="stat-icon">👥</div>
               <div className="stat-info">
                 <div className="stat-number">{filteredContinents.length}</div>
                 <div className="stat-label">Continents</div>
+              </div>
+            </div>
+          </div>
+          <div className="stat-card">
+            <div className="stat-content">
+              <div className="stat-icon">⭐</div>
+              <div className="stat-info">
+                <div className="stat-number">15+</div>
+                <div className="stat-label">Années d'expérience</div>
               </div>
             </div>
           </div>
@@ -196,7 +269,7 @@ const CountryCard = ({ country, index, onReservationClick }) => {
         <div className="country-header-decoration"></div>
         <div className="country-header-content">
           <div className="country-flag-row">
-            <span className="country-flag">{country.flag}</span>
+            <img src={country.flag} alt={`Drapeau ${country.name}`} className="country-flag-img" />
             {country.population && (
               <span className="country-population">{country.population}</span>
             )}
@@ -226,7 +299,7 @@ const CountryCard = ({ country, index, onReservationClick }) => {
           className="reserve-country-btn"
           onClick={() => onReservationClick(country.name)}
         >
-          Réserver un billet pour {country.name}
+          ✈️ Réserver un billet pour {country.name}
         </button>
       </div>
     </div>
@@ -291,6 +364,142 @@ const CountryList = ({ filteredCountries, continents, onReservationClick }) => {
         );
       })}
     </div>
+  );
+};
+
+// Composant About
+const About = () => {
+  return (
+    <section id="about" className="about-section">
+      <div className="about-container">
+        <div className="about-header">
+          <h2>À propos de Jess Voyages</h2>
+          <div className="about-subtitle">
+            <span className="about-icon">✈️</span>
+            Votre partenaire de confiance depuis plus de 15 ans
+          </div>
+        </div>
+        
+        <div className="about-content">
+          <div className="about-text">
+            <div className="about-card">
+              <div className="about-card-header">
+                <div className="about-card-icon">🌟</div>
+                <h3>Notre Mission</h3>
+              </div>
+              <p>
+                Chez Jess Voyages, nous rendons le monde accessible à tous. Notre passion est de créer des expériences de voyage inoubliables, 
+                en combinant expertise locale, service personnalisé et prix compétitifs.
+              </p>
+            </div>
+            
+            <div className="about-card">
+              <div className="about-card-header">
+                <div className="about-card-icon">🎯</div>
+                <h3>Notre Vision</h3>
+              </div>
+              <p>
+                Être la référence en matière de voyages en Afrique et vers le monde entier, en offrant un service d'excellence 
+                qui dépasse les attentes de nos clients à chaque étape de leur aventure.
+              </p>
+            </div>
+            
+            <div className="about-card">
+              <div className="about-card-header">
+                <div className="about-card-icon">💎</div>
+                <h3>Nos Valeurs</h3>
+              </div>
+              <p>
+                Confiance, transparence et excellence sont au cœur de tout ce que nous faisons. Nous croyons que chaque voyage 
+                doit être une source d'enrichissement personnel et de découvertes extraordinaires.
+              </p>
+            </div>
+          </div>
+          
+          <div className="about-features">
+            <div className="feature-grid">
+              <div className="feature-item">
+                <div className="feature-icon">🏆</div>
+                <div className="feature-content">
+                  <h4>15+ Années d'Expérience</h4>
+                  <p>Une expertise reconnue dans l'industrie du voyage</p>
+                </div>
+              </div>
+              
+              <div className="feature-item">
+                <div className="feature-icon">🌍</div>
+                <div className="feature-content">
+                  <h4>20 Pays Desservis</h4>
+                  <p>Un réseau mondial pour vos destinations de rêve</p>
+                </div>
+              </div>
+              
+              <div className="feature-item">
+                <div className="feature-icon">👥</div>
+                <div className="feature-content">
+                  <h4>50,000+ Clients Satisfaits</h4>
+                  <p>Une communauté de voyageurs qui nous font confiance</p>
+                </div>
+              </div>
+              
+              <div className="feature-item">
+                <div className="feature-icon">⭐</div>
+                <div className="feature-content">
+                  <h4>Service 24/7</h4>
+                  <p>Un support disponible à tout moment</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// Composant Testimonials
+const Testimonials = () => {
+  return (
+    <section id="testimonials" className="testimonials-section">
+      <div className="testimonials-container">
+        <div className="testimonials-header">
+          <h2>Témoignages de nos clients</h2>
+          <p>Découvrez ce que nos voyageurs disent de leurs expériences</p>
+        </div>
+        
+        <div className="testimonials-grid">
+          {testimonialsData.map((testimonial, index) => (
+            <div key={index} className="testimonial-card" style={{ animationDelay: `${index * 200}ms` }}>
+              <div className="testimonial-header">
+                <div className="testimonial-avatar">{testimonial.image}</div>
+                <div className="testimonial-info">
+                  <h4>{testimonial.name}</h4>
+                  <p>{testimonial.location}</p>
+                </div>
+                <div className="testimonial-rating">
+                  {[...Array(testimonial.rating)].map((_, i) => (
+                    <span key={i} className="star">⭐</span>
+                  ))}
+                </div>
+              </div>
+              <div className="testimonial-content">
+                <p>"{testimonial.text}"</p>
+              </div>
+            </div>
+          ))}
+        </div>
+        
+        <div className="testimonials-cta">
+          <div className="cta-content">
+            <h3>Prêt pour votre prochaine aventure ?</h3>
+            <p>Rejoignez des milliers de voyageurs satisfaits</p>
+            <button className="cta-button">
+              🌍 Commencer mon voyage
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 };
 
@@ -370,6 +579,18 @@ const ReservationModal = ({ showReservationForm, setShowReservationForm, reserva
             </div>
           </div>
           
+          <div className="form-group">
+            <label>Lieu de départ *</label>
+            <input 
+              type="text" 
+              name="lieuDepart"
+              value={reservationData.lieuDepart} 
+              onChange={handleInputChange}
+              placeholder="Ex: Casablanca, Maroc"
+              required 
+            />
+          </div>
+          
           <div className="form-row">
             <div className="form-group">
               <label>Date de départ *</label>
@@ -426,7 +647,7 @@ const ReservationModal = ({ showReservationForm, setShowReservationForm, reserva
               Annuler
             </button>
             <button type="submit" className="submit-btn">
-              Confirmer la réservation
+              ✈️ Confirmer la réservation
             </button>
           </div>
         </form>
@@ -440,22 +661,83 @@ const Footer = ({ countries, continents }) => {
   const totalCities = countries.reduce((sum, c) => sum + c.cities.length, 0);
   
   return (
-    <footer className="footer" id="testimonials">
+    <footer className="footer" id="contact">
       <div className="footer-content">
-        <div className="footer-icon">🌍</div>
-        <p className="footer-title">
-          Explorateur Mondial - Découvrez le monde, une ville à la fois
-        </p>
-        <p className="footer-stats">
-          {countries.length} pays • {totalCities} villes • {continents.length} continents
-        </p>
+        <div className="footer-main">
+          <div className="footer-brand">
+            <img src={logo} alt="Logo Jess Voyages" className="footer-logo" />
+            <h3>Jess Voyages</h3>
+            <p>Votre partenaire de confiance pour découvrir le monde</p>
+          </div>
+          
+          <div className="footer-section">
+            <h4>Nos Services</h4>
+            <ul>
+              <li>Billets d'avion</li>
+              <li>Réservation d'hôtels</li>
+              <li>Forfaits voyage</li>
+              <li>Visa et formalités</li>
+            </ul>
+          </div>
+          
+          <div className="footer-section">
+            <h4>Destinations Populaires</h4>
+            <ul>
+              <li>Paris, France</li>
+              <li>Dubaï, EAU</li>
+              <li>New York, USA</li>
+              <li>Londres, UK</li>
+            </ul>
+          </div>
+          
+          <div className="footer-section">
+            <h4>Contact</h4>
+            <div className="contact-info">
+              <p>📞 +212 5XX-XXX-XXX</p>
+              <p>✉️ contact@jessvoyages.com</p>
+              <p>📍 Casablanca, Maroc</p>
+              <div className="social-links">
+                <span>📱 Facebook</span>
+                <span>📸 Instagram</span>
+                <span>🐦 Twitter</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div className="footer-stats">
+          <div className="stat-item">
+            <span className="stat-icon">🌍</span>
+            <span>{countries.length} pays</span>
+          </div>
+          <div className="stat-item">
+            <span className="stat-icon">📍</span>
+            <span>{totalCities} villes</span>
+          </div>
+          <div className="stat-item">
+            <span className="stat-icon">🏛️</span>
+            <span>{continents.length} continents</span>
+          </div>
+          <div className="stat-item">
+            <span className="stat-icon">⭐</span>
+            <span>15+ années</span>
+          </div>
+        </div>
+        
+        <div className="footer-bottom">
+          <p>&copy; 2024 Jess Voyages. Tous droits réservés.</p>
+          <div className="footer-links">
+            <a href="#privacy">Politique de confidentialité</a>
+            <a href="#terms">Conditions d'utilisation</a>
+          </div>
+        </div>
       </div>
     </footer>
   );
 };
 
 // Composant principal
-const ExplorateurMondial = () => {
+const App = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedContinent, setSelectedContinent] = useState('');
   const [filteredCountries, setFilteredCountries] = useState([]);
@@ -467,6 +749,7 @@ const ExplorateurMondial = () => {
     prenom: '',
     email: '',
     telephone: '',
+    lieuDepart: '',
     dateDepart: '',
     dateRetour: '',
     nombrePassagers: 1,
@@ -510,13 +793,14 @@ const ExplorateurMondial = () => {
 
   const handleReservationSubmit = (e) => {
     e.preventDefault();
-    alert(`Réservation confirmée pour ${reservationData.prenom} ${reservationData.nom} vers ${reservationData.destination}`);
+    alert(`Réservation confirmée pour ${reservationData.prenom} ${reservationData.nom} vers ${reservationData.destination} au départ de ${reservationData.lieuDepart}`);
     setShowReservationForm(false);
     setReservationData({
       nom: '',
       prenom: '',
       email: '',
       telephone: '',
+      lieuDepart: '',
       dateDepart: '',
       dateRetour: '',
       nombrePassagers: 1,
@@ -556,6 +840,10 @@ const ExplorateurMondial = () => {
         onReservationClick={handleReservationClick}
       />
       
+      <About />
+      
+      <Testimonials />
+      
       <ReservationModal 
         showReservationForm={showReservationForm}
         setShowReservationForm={setShowReservationForm}
@@ -573,4 +861,4 @@ const ExplorateurMondial = () => {
   );
 };
 
-export default ExplorateurMondial;
+export default App;
