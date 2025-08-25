@@ -1294,13 +1294,13 @@ body {
   }
 }
 
-.modal-header {
+.modal-headerss {
   padding: 2rem 3rem;
   border-bottom: 1px solid rgba(139, 0, 0, 0.1);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(135极速赛车开奖直播历史记录, #8B0000, #DC143C, #B22222);
+  background-color: #8B0000;
   color: white;
   border-radius: 25px 25px 0 0;
 }

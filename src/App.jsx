@@ -518,7 +518,7 @@ const ReservationModal = ({ showReservationForm, setShowReservationForm, reserva
   return (
     <div className="modal-overlay">
       <div className="reservation-modal">
-        <div className="modal-header">
+        <div className="modal-headerss">
           <h2>Réserver votre billet</h2>
           <button className="close-modal" onClick={() => setShowReservationForm(false)}>×</button>
         </div>
