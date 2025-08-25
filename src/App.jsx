@@ -661,78 +661,101 @@ const Footer = ({ countries, continents }) => {
   const totalCities = countries.reduce((sum, c) => sum + c.cities.length, 0);
   
   return (
-    <footer className="footer" id="contact">
-      <div className="footer-content">
-        <div className="footer-main">
-          <div className="footer-brand">
-            <img src={logo} alt="Logo Jess Voyages" className="footer-logo" />
-            <h3>Jess Voyages</h3>
-            <p>Votre partenaire de confiance pour découvrir le monde</p>
-          </div>
-          
-          <div className="footer-section">
-            <h4>Nos Services</h4>
-            <ul>
-              <li>Billets d'avion</li>
-              <li>Réservation d'hôtels</li>
-              <li>Forfaits voyage</li>
-              <li>Visa et formalités</li>
-            </ul>
-          </div>
-          
-          <div className="footer-section">
-            <h4>Destinations Populaires</h4>
-            <ul>
-              <li>Paris, France</li>
-              <li>Dubaï, EAU</li>
-              <li>New York, USA</li>
-              <li>Londres, UK</li>
-            </ul>
-          </div>
-          
-          <div className="footer-section">
-            <h4>Contact</h4>
-            <div className="contact-info">
-              <p>📞 +212 5XX-XXX-XXX</p>
-              <p>✉️ contact@jessvoyages.com</p>
-              <p>📍 Casablanca, Maroc</p>
-              <div className="social-links">
-                <span>📱 Facebook</span>
-                <span>📸 Instagram</span>
-                <span>🐦 Twitter</span>
-              </div>
+    <footer class="voyage-footer" id="contact">
+    <div class="voyage-container">
+        <div class="voyage-content">
+            <div class="voyage-brand">
+                <img src="https://via.placeholder.com/160x60?text=Jess+Voyages" alt="Logo Jess Voyages" class="voyage-logo" />
+                <h3>Jess Voyages</h3>
+                <p>Votre partenaire de confiance pour découvrir le monde. Nous vous accompagnons dans toutes vos aventures à travers la planète.</p>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/" class="social-link facebook" aria-label="Facebook" target="_blank">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://www.instagram.com/" class="social-link instagram" aria-label="Instagram" target="_blank">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://twitter.com/" class="social-link twitter" aria-label="Twitter" target="_blank">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/" class="social-link linkedin" aria-label="LinkedIn" target="_blank">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://www.youtube.com/" class="social-link youtube" aria-label="YouTube" target="_blank">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
             </div>
-          </div>
+            
+            <div class="voyage-section">
+                <h4>Nos Services</h4>
+                <ul>
+                    <li>Billets d'avion</li>
+                    <li>Réservation d'hôtels</li>
+                    <li>Forfaits voyage</li>
+                    <li>Visa et formalités</li>
+                    <li>Location de voitures</li>
+                    <li>Assurance voyage</li>
+                </ul>
+            </div>
+            
+            <div class="voyage-section">
+                <h4>Destinations Populaires</h4>
+                <ul>
+                    <li>Paris, France</li>
+                    <li>Dubaï, EAU</li>
+                    <li>New York, USA</li>
+                    <li>Londres, UK</li>
+                    <li>Tokyo, Japon</li>
+                    <li>Bali, Indonésie</li>
+                </ul>
+            </div>
+            
+            <div class="voyage-section">
+                <h4>Contact</h4>
+                <div class="contact-info">
+                    <p><i class="fas fa-phone"></i> +212 5XX-XXX-XXX</p>
+                    <p><i class="fas fa-envelope"></i> contact@jessvoyages.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Casablanca, Maroc</p>
+                    <p><i class="fas fa-clock"></i> Lun-Ven: 9h-18h | Sam: 10h-16h</p>
+                </div>
+            </div>
         </div>
         
-        <div className="footer-stats">
-          <div className="stat-item">
-            <span className="stat-icon">🌍</span>
-            <span>{countries.length} pays</span>
-          </div>
-          <div className="stat-item">
-            <span className="stat-icon">📍</span>
-            <span>{totalCities} villes</span>
-          </div>
-          <div className="stat-item">
-            <span className="stat-icon">🏛️</span>
-            <span>{continents.length} continents</span>
-          </div>
-          <div className="stat-item">
-            <span className="stat-icon">⭐</span>
-            <span>15+ années</span>
-          </div>
+        <div class="voyage-stats">
+            <div class="stat-item">
+                <div class="stat-icon">🌍</div>
+                <div class="stat-number">85</div>
+                <div class="stat-label">pays</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon">📍</div>
+                <div class="stat-number">320</div>
+                <div class="stat-label">villes</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon">🏛️</div>
+                <div class="stat-number">7</div>
+                <div class="stat-label">continents</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon">⭐</div>
+                <div class="stat-number">15+</div>
+                <div class="stat-label">années</div>
+            </div>
         </div>
         
-        <div className="footer-bottom">
-          <p>&copy; 2024 Jess Voyages. Tous droits réservés.</p>
-          <div className="footer-links">
-            <a href="#privacy">Politique de confidentialité</a>
-            <a href="#terms">Conditions d'utilisation</a>
-          </div>
+        <div class="voyage-bottom">
+            <p class="voyage-copyright">&copy; 2024 Jess Voyages. Tous droits réservés.</p>
+            <div class="voyage-links">
+                <a href="#privacy">Politique de confidentialité</a>
+                <a href="#terms">Conditions d'utilisation</a>
+                <a href="#cookies">Préférences de cookies</a>
+            </div>
         </div>
-      </div>
-    </footer>
+    </div>
+</footer>
+
   );
 };
 
