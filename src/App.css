@@ -5,10 +5,23 @@
   box-sizing: border-box;
 }
 
+:root {
+  --primary-color: #8B0000;
+  --secondary-color: #DC143C;
+  --accent-color: #B22222;
+  --dark-text: #1a202c;
+  --light-text: #ffffff;
+  --gray-text: #4a5568;
+  --light-gray: #f8f9fa;
+  --background-gradient: linear-gradient(135deg, #8B0000, #DC143C, #B22222);
+  --card-shadow: 0 15px 35px rgba(139, 0, 0, 0.1);
+  --hover-shadow: 0 25px 50px rgba(139, 0, 0, 0.2);
+}
+
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   line-height: 1.6;
-  color: #333;
+  color: var(--dark-text);
   overflow-x: hidden;
 }
 
@@ -45,15 +58,11 @@ body {
   object-fit: contain;
   background: transparent;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  transition: transform 0.3s ease;
 }
 
-.nav-logo {
-  font-size: 1.5rem;
-  font-weight: 700;
-  background: linear-gradient(90deg, #8B0000, #DC143C);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+.nav-logo-img:hover {
+  transform: scale(1.05);
 }
 
 .nav-links {
@@ -64,16 +73,17 @@ body {
 }
 
 .nav-link {
-  color: #1f2937;
+  color: var(--dark-text);
   text-decoration: none;
   font-weight: 600;
   position: relative;
   padding: 0.5rem 0;
   transition: all 0.3s ease;
+  font-size: 1.1rem;
 }
 
 .nav-link:hover {
-  color: #8B0000;
+  color: var(--primary-color);
 }
 
 .nav-link::after {
@@ -83,36 +93,12 @@ body {
   left: 0;
   width: 0;
   height: 2px;
-  background: linear-gradient(90deg, #8B0000, #DC143C);
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
   transition: width 0.3s ease;
 }
 
 .nav-link:hover::after {
   width: 100%;
-}
-
-/* Button styles */
-.button {
-  padding: 0.6rem 1.2rem;
-  border-radius: 25px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  border: 2px solid transparent;
-  font-size: 0.9rem;
-}
-
-.button-outline {
-  background-color: transparent;
-  border-color: #8B0000;
-  color: #8B0000;
-}
-
-.button-outline:hover {
-  background: linear-gradient(135deg, #8B0000, #DC143C);
-  color: white;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(139, 0, 0, 0.3);
 }
 
 /* Mobile menu button */
@@ -126,14 +112,16 @@ body {
   border: none;
   cursor: pointer;
   z-index: 1001;
+  padding: 0;
 }
 
 .mobile-menu-button span {
   height: 3px;
   width: 100%;
-  background-color: #1f2937;
+  background-color: var(--dark-text);
   border-radius: 3px;
   transition: all 0.3s ease;
+  transform-origin: center;
 }
 
 .mobile-menu-button.active span:nth-child(1) {
@@ -142,6 +130,7 @@ body {
 
 .mobile-menu-button.active span:nth-child(2) {
   opacity: 0;
+  transform: translateX(-20px);
 }
 
 .mobile-menu-button.active span:nth-child(3) {
@@ -149,7 +138,7 @@ body {
 }
 
 /* Responsive navigation */
-@media (max-width: 768px) {
+@media (max-width: 968px) {
   .mobile-menu-button {
     display: flex;
   }
@@ -165,11 +154,11 @@ body {
     background: rgba(255, 255, 255, 0.98);
     backdrop-filter: blur(20px);
     padding: 2rem;
-    gap: 2rem;
+    gap: 2.5rem;
     transform: translateX(-100%);
     opacity: 0;
     visibility: hidden;
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .nav-links-open {
@@ -179,15 +168,26 @@ body {
   }
 
   .nav-link {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     padding: 1rem 0;
+    font-weight: 700;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav {
+    padding: 0.75rem 1rem;
+  }
+  
+  .nav-logo-img {
+    height: 3.2rem;
   }
 }
 
 /* Header Hero Styles */
 .header-hero {
   position: relative;
-  background: linear-gradient(135deg, #8B0000, #DC143C, #B22222);
+  background: var(--background-gradient);
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -207,12 +207,12 @@ body {
     radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
     radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
     radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
-  animation: floating 6s ease-in-out infinite alternate;
+  animation: floating 8s ease-in-out infinite alternate;
 }
 
 @keyframes floating {
   0% { transform: translateY(0px) scale(1); }
-  100% { transform: translateY(-10px) scale(1.02); }
+  100% { transform: translateY(-20px) scale(1.02); }
 }
 
 .header-overlay {
@@ -227,6 +227,7 @@ body {
   z-index: 2;
   max-width: 1200px;
   padding: 0 2rem;
+  width: 100%;
 }
 
 .header-title {
@@ -235,13 +236,19 @@ body {
   justify-content: center;
   margin-bottom: 2rem;
   animation: slideInUp 1s ease-out;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
 .globe-icon {
   font-size: 4rem;
-  margin-right: 1rem;
   animation: rotate 20s linear infinite;
   filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+  transition: transform 0.3s ease;
+}
+
+.globe-icon:hover {
+  transform: scale(1.2);
 }
 
 @keyframes rotate {
@@ -263,12 +270,13 @@ body {
 .header-title h1 {
   font-size: clamp(2.5rem, 8vw, 5rem);
   font-weight: 900;
-  color: white;
+  color: var(--light-text);
   text-shadow: 
     0 2px 4px rgba(0, 0, 0, 0.3),
-    0 4px 8px rgba(0, 0, 0, 0.2),
+    0 4px 8px rgba(0, 0, 极速赛车开奖直播历史记录, 0.2),
     0 8px 16px rgba(0, 0, 0, 0.1);
   letter-spacing: -0.02em;
+  line-height: 1.1;
 }
 
 .header-description {
@@ -307,6 +315,7 @@ body {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  min-width: max-content;
 }
 
 .discover-btn::before,
@@ -328,9 +337,11 @@ body {
 
 .discover-btn {
   background: rgba(255, 255, 255, 0.2);
-  color: white;
+  color: var(--light-text);
   border: 2px solid rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(15px);
+  margin-left: -50px;
+  width: 5px;
 }
 
 .discover-btn:hover {
@@ -340,9 +351,9 @@ body {
 }
 
 .reserve-header-btn {
-  background: white;
-  color: #8B0000;
-  border: 2px solid white;
+  background: var(--light-text);
+  color: var(--primary-color);
+  border: 2px solid var(--light-text);
 }
 
 .reserve-header-btn:hover {
@@ -354,6 +365,11 @@ body {
 .btn-icon {
   width: 20px;
   height: 20px;
+  transition: transform 0.3s ease;
+}
+
+.discover-btn:hover .btn-icon {
+  transform: translateX(5px);
 }
 
 /* Stats Container */
@@ -363,10 +379,13 @@ body {
   gap: 2rem;
   margin-bottom: 2rem;
   animation: slideInUp 1s ease-out 0.6s both;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .stat-card {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(109, 17, 17, 0.15);
   backdrop-filter: blur(20px);
   border-radius: 25px;
   padding: 2rem;
@@ -411,22 +430,59 @@ body {
 }
 
 .stat-icon {
-  font-size: 2rem;
+  font-size: 2.5rem;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+  transition: transform 0.3s ease;
+}
+
+.stat-card:hover .stat-icon {
+  transform: scale(1.2);
 }
 
 .stat-number {
-  font-size: 2.2rem;
+  font-size: 2.5rem;
   font-weight: 900;
-  color: white;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  color: var(--light-text);
+  text-shadow: 0 2极速赛车开奖直播历史记录 4px rgba(0, 0, 0, 0.3);
 }
 
 .stat-label {
   color: rgba(255, 255, 255, 0.9);
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   font-weight: 600;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 768px) {
+  .stats-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  
+  .stat-card {
+    padding: 1.5rem;
+  }
+  
+  .stat-number {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .stats-container {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .header-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .discover-btn, .reserve-header-btn {
+    width: 100%;
+    justify-content: center;
+  }
 }
 
 /* Search Container */
@@ -470,7 +526,7 @@ body {
   top: 50%;
   transform: translateY(-50%);
   font-size: 1.3rem;
-  color: #8B0000;
+  color: var(--primary-color);
   z-index: 2;
 }
 
@@ -481,14 +537,15 @@ body {
   border-radius: 20px;
   font-size: 1.1rem;
   transition: all 0.3s ease;
-  background: white;
+  background: var(--light-text);
   box-shadow: 0 4px 15px rgba(139, 0, 0, 0.1);
   font-weight: 500;
 }
 
+
 .search-input:focus {
   outline: none;
-  border-color: #8B0000;
+  border-color: var(--primary-color);
   box-shadow: 
     0 0 0 4px rgba(139, 0, 0, 0.1),
     0 4px 20px rgba(139, 0, 0, 0.2);
@@ -534,7 +591,7 @@ body {
   cursor: pointer;
   transition: all 0.3s ease;
   background: rgba(139, 0, 0, 0.1);
-  color: #8B0000;
+  color: var(--primary-color);
   border: 2px solid transparent;
   font-size: 0.95rem;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
@@ -550,7 +607,7 @@ body {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 极速赛车开奖直播历史记录), transparent);
   transition: left 0.5s;
 }
 
@@ -565,11 +622,26 @@ body {
 }
 
 .filter-btn.active {
-  background: linear-gradient(135deg, #8B0000, #DC143C);
-  color: white;
-  border-color: #8B0000;
-  box-shadow: 0 6px 18px rgba(139, 0, 0, 0.3);
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: var(--light-text);
+  border-color: var(--primary-color);
+  box-shadow: 0 6极速赛车开奖直播历史记录 18px rgba(139, 0, 0, 0.3);
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 640px) {
+  .search-content {
+    padding: 1.5rem 1rem;
+  }
+  
+  .filter-buttons {
+    gap: 0.5rem;
+  }
+  
+  .filter-btn {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.9rem;
+  }
 }
 
 /* Main Content */
@@ -577,15 +649,20 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   padding: 4rem 2rem;
-  background: linear-gradient(135deg, #f8f9fa, #ffffff);
+  background-color: white;
+
   min-height: 50vh;
 }
 
-.continent-section {
+.continent-sections {
   margin-bottom: 5rem;
+  width: 100%;
+  background-color: white;
 }
 
-.continent-header {
+.continent-headers {
+  display: flex;
+  justify-content: center;
   margin-bottom: 3rem;
 }
 
@@ -594,8 +671,8 @@ body {
   align-items: center;
   padding: 1.5rem 3rem;
   border-radius: 25px;
-  background: linear-gradient(135deg, #8B0000, #DC143C, #B22222);
-  color: white;
+  background: var(--background-gradient);
+  color: var(--light-text);
   box-shadow: 
     0 15px 40px rgba(139, 0, 0, 0.3),
     0 5px 15px rgba(139, 0, 0, 0.2);
@@ -608,7 +685,7 @@ body {
   position: absolute;
   top: 0;
   left: -100%;
-  width: 100%;
+  width: 极速赛车开奖直播历史记录%;
   height: 100%;
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
   animation: shimmer 3s infinite;
@@ -631,7 +708,7 @@ body {
   margin: 0;
   text-shadow: 
     0 2px 4px rgba(0, 0, 0, 0.3),
-    0 4px 8px rgba(0, 0, 0, 0.1);
+    极速赛车开奖直播历史记录 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .continent-count {
@@ -643,6 +720,35 @@ body {
   font-weight: 700;
   backdrop-filter: blur(10px);
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 768px) {
+  .continent-title {
+    padding: 1.2rem 2rem;
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+  
+  .continent-icon {
+    margin-right: 0;
+    margin-bottom: 0.5rem;
+  }
+  
+  .continent-count {
+    margin-left: 0;
+    margin-top: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .continent-title {
+    padding: 1rem 1.5rem;
+  }
+  
+  .continent-title h2 {
+    font-size: 1.5rem;
+  }
 }
 
 /* Countries Grid */
@@ -664,12 +770,10 @@ body {
 }
 
 .country-card {
-  background: white;
+  background: var(--light-text);
   border-radius: 25px;
   overflow: hidden;
-  box-shadow: 
-    0 15px 35px rgba(139, 0, 0, 0.1),
-    0 5px 15px rgba(139, 0, 0, 0.05);
+  box-shadow: var(--card-shadow);
   transition: all 0.4s ease;
   animation: slideUp 0.8s ease forwards;
   opacity: 0;
@@ -679,14 +783,12 @@ body {
 
 .country-card:hover {
   transform: translateY(-12px);
-  box-shadow: 
-    0 25px 50px rgba(139, 0, 0, 0.2),
-    0 8px 20px rgba(139, 0, 0, 0.1);
+  box-shadow: var(--hover-shadow);
 }
 
 /* Country Header */
 .country-header {
-  background: linear-gradient(135deg, #8B0000, #DC143C, #B22222);
+  background: var(--background-gradient);
   padding: 2rem;
   position: relative;
   overflow: hidden;
@@ -732,6 +834,11 @@ body {
   border-radius: 4px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   border: 2px solid rgba(255, 255, 255, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.country-flag-img:hover {
+  transform: scale(1.1);
 }
 
 .country-population {
@@ -740,7 +847,7 @@ body {
   border-radius: 25px;
   font-size: 0.85rem;
   font-weight: 700;
-  color: white;
+  color: var(--light-text);
   backdrop-filter: blur(15px);
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -749,7 +856,7 @@ body {
 .country-name {
   font-size: 1.8rem;
   font-weight: 800;
-  color: white;
+  color: var(--light-text);
   margin-bottom: 0.8rem;
   text-shadow: 
     0 3px 6px rgba(0, 0, 0, 0.4),
@@ -765,7 +872,7 @@ body {
 }
 
 .city-count {
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 1px 3px rgba(0, 极速赛车开奖直播历史记录, 0, 0.3);
 }
 
 /* Cities List */
@@ -778,7 +885,7 @@ body {
   align-items: center;
   padding: 1rem 1.2rem;
   margin-bottom: 0.8rem;
-  background: linear-gradient(135deg, #f8f9fa, #ffffff);
+  background: linear-gradient(135deg, var(--light-gray), #ffffff);
   border-radius: 15px;
   transition: all 0.3s ease;
   border: 1px solid rgba(139, 0, 0, 0.08);
@@ -810,8 +917,8 @@ body {
 
 .city-dot {
   width: 10px;
-  height: 10px;
-  background: linear-gradient(135deg, #8B0000, #DC143C);
+ height: 10px;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
   border-radius: 50%;
   margin-right: 1.2rem;
   box-shadow: 0 0 10px rgba(139, 0, 0, 0.3);
@@ -821,7 +928,7 @@ body {
 
 .city-name {
   font-weight: 700;
-  color: #333;
+  color: var(--dark-text);
   text-shadow: 0 1px 2px rgba(139, 0, 0, 0.1);
   flex-grow: 1;
   font-size: 1rem;
@@ -831,8 +938,8 @@ body {
 
 .reserve-city-btn {
   padding: 0.5rem 1rem;
-  background: linear-gradient(135deg, #8B0000, #DC143C);
-  color: white;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: var(--light-text);
   border: none;
   border-radius: 10px;
   font-size: 0.85rem;
@@ -846,20 +953,21 @@ body {
 
 .reserve-city-btn:hover {
   transform: translateY(-3px);
-  box-shadow: 0 6px 12px rgba(139, 0, 0, 极速赛车开奖直播历史记录);
+  box-shadow: 0 6px 12px rgba(139, 0, 0, 0.3);
 }
 
 /* Country Footer */
 .country-footer {
   padding: 1.5rem 2rem 2rem;
   text-align: center;
-  background: linear-gradient(180deg, transparent, rgba(139, 0, 0, 0.02));
+  background: linear-gradient(180deg, transparent, rgba(139, 极速赛车开奖直播历史记录, 0, 0.02));
 }
 
-.reserve-country-btn {
+.reserve-country-btns {
   padding: 1rem 2rem;
-  background: linear-gradient(135deg, #8B0000, #DC143C);
-  color: white;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: var(--light-text);
+
   border: none;
   border-radius: 15px;
   font-weight: 700;
@@ -892,6 +1000,41 @@ body {
   box-shadow: 0 10px 20px rgba(139, 0, 0, 0.3);
 }
 
+@media (max-width: 768px) {
+  .countries-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+  
+  .country-header {
+    padding: 1.5rem;
+  }
+  
+  .cities-list {
+    padding: 1.5rem;
+  }
+  
+  .city-item {
+    padding: 0.8rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .countries-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .country-name {
+    font-size: 1.5rem;
+  }
+  
+  .reserve-country-btn {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.9rem;
+  }
+}
+
 /* About Section */
 .about-section {
   padding: 6rem 2rem;
@@ -908,7 +1051,7 @@ body {
   right: 0;
   bottom: 0;
   background: 
-    radial-gradient(circle at 10% 20%, rgba(139, 0, 0, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 10% 20%, rgba(139, 0, 0, 0.05) 极速赛车开奖直播历史记录%, transparent 50%),
     radial-gradient(circle at 80% 80%, rgba(220, 20, 60, 0.05) 0%, transparent 50%);
 }
 
@@ -927,9 +1070,9 @@ body {
 .about-header h2 {
   font-size: clamp(2.5rem, 5vw, 3.5rem);
   font-weight: 900;
-  color: #1a202c;
+  color: var(--dark-text);
   margin-bottom: 1rem;
-  background: linear-gradient(135deg, #8B0000, #DC143C);
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -941,7 +1084,7 @@ body {
   justify-content: center;
   gap: 1rem;
   font-size: 1.2rem;
-  color: #4a5568;
+  color: var(--gray-text);
   font-weight: 600;
 }
 
@@ -968,11 +1111,11 @@ body {
 }
 
 .about-card {
-  background: white;
+  background: var(--light-text);
   padding: 2.5rem;
   border-radius: 20px;
   box-shadow: 0 10px 30px rgba(139, 0, 0, 0.1);
-  border: 1px solid rgba(139, 0, 0, 极速赛车开奖直播历史记录);
+  border: 1px solid rgba(139, 0, 0, 0.05);
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
@@ -985,7 +1128,7 @@ body {
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, #8B0000, #DC143C);
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
 }
 
 .about-card:hover {
@@ -1003,22 +1146,27 @@ body {
 .about-card-icon {
   font-size: 2rem;
   filter: drop-shadow(0 2px 4px rgba(139, 0, 0, 0.2));
+  transition: transform 0.3s ease;
+}
+
+.about-card:hover .about-card-icon {
+  transform: scale(1.2);
 }
 
 .about-card h3 {
   font-size: 1.5rem;
   font-weight: 800;
-  color: #1a202c;
+  color: var(--dark-text);
 }
 
 .about-card p {
   font-size: 1.1rem;
   line-height: 1.7;
-  color: #4a5568;
+  color: var(--gray-text);
 }
 
 .about-features {
-  background: white;
+  background: var(--light-text);
   padding: 3rem;
   border-radius: 25px;
   box-shadow: 0 15px 40px rgba(139, 0, 0, 0.1);
@@ -1041,7 +1189,7 @@ body {
   align-items: center;
   gap: 1.5rem;
   padding: 1.5rem;
-  border-radius: 15px;
+  border-radius: 15极速赛车开奖直播历史记录;
   background: linear-gradient(135deg, #f8fafc, #ffffff);
   border: 1px solid rgba(139, 0, 0, 0.05);
   transition: all 0.3s ease;
@@ -1049,19 +1197,24 @@ body {
 
 .feature-item:hover {
   transform: translateY(-3px);
-  box-shadow: 极速赛车开奖直播历史记录 8px 20px rgba(139, 0, 0, 0.1);
+  box-shadow: 0 8px 20px rgba(139, 0, 0, 0.1);
   background: linear-gradient(135deg, rgba(139, 0, 0, 0.02), #ffffff);
 }
 
 .feature-icon {
   font-size: 2.5rem;
   filter: drop-shadow(0 2px 4px rgba(139, 0, 0, 0.2));
+  transition: transform 0.3s ease;
+}
+
+.feature-item:hover .feature-icon {
+  transform: scale(1.2);
 }
 
 .feature-content h4 {
   font-size: 1.2rem;
   font-weight: 700;
-  color: #1a202c;
+  color: var(--dark-text);
   margin-bottom: 0.5rem;
 }
 
@@ -1070,10 +1223,42 @@ body {
   font-size: 0.95rem;
 }
 
+@media (max-width: 968px) {
+  .about-section {
+    padding: 4rem 1.5rem;
+  }
+  
+  .about-card {
+    padding: 2rem;
+  }
+  
+  .about-features {
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .about-content {
+    gap: 2rem;
+  }
+  
+  .about-card {
+    padding: 1.5rem;
+  }
+  
+  .feature-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .feature-item {
+    padding: 1.2rem;
+  }
+}
+
 /* Testimonials Section */
 .testimonials-section {
   padding: 6rem 2rem;
-  background: linear-gradient(135deg, #8B0000, #DC143C, #B22222);
+  background: var(--background-gradient);
   position: relative;
   overflow: hidden;
 }
@@ -1087,31 +1272,31 @@ body {
   bottom: 0;
   background: 
     radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 极速赛车开奖直播历史记录) 0%, transparent 50%);
+    radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
 }
 
 .testimonials-container {
   max-width: 1200px;
   margin: 0 auto;
   position: relative;
-  z-index: 极速赛车开奖直播历史记录;
+  z-index: 2;
 }
 
 .testimonials-header {
   text-align: center;
   margin-bottom: 4rem;
-  color: white;
+  color: var(--light-text);
 }
 
 .testimonials-header h2 {
   font-size: clamp(2.5rem, 5vw, 3.5rem);
   font-weight: 900;
   margin-bottom: 1rem;
-  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 极速赛车开奖直播历史记录);
 }
 
 .testimonials-header p {
- 极速赛车开奖直播历史记录 font-size: 1.3rem;
+  font-size: 1.3rem;
   opacity: 0.9;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
@@ -1143,13 +1328,18 @@ body {
 .testimonial-header {
   display: flex;
   align-items: center;
- 极速赛车开奖直播历史记录 margin-bottom: 1.5rem;
+  margin-bottom: 1.5rem;
   gap: 1rem;
 }
 
 .testimonial-avatar {
   font-size: 3rem;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  transition: transform 0.3s ease;
+}
+
+.testimonial-card:hover .testimonial-avatar {
+  transform: scale(1.1);
 }
 
 .testimonial-info {
@@ -1159,7 +1349,7 @@ body {
 .testimonial-info h4 {
   font-size: 1.2rem;
   font-weight: 700;
-  color: #1a202c;
+  color: var(--dark-text);
   margin-bottom: 0.3rem;
 }
 
@@ -1191,15 +1381,15 @@ body {
   backdrop-filter: blur(20px);
   border-radius: 25px;
   padding: 3rem;
-  border: 1极速赛车开奖直播历史记录 solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .cta-content h3 {
   font-size: 2rem;
   font-weight: 800;
-  color: white;
+  color: var(--light-text);
   margin-bottom: 1rem;
- 极速赛车开奖直播历史记录 text-shadow: 0 2px 极速赛车开奖直播历史记录 rgba(0, 0, 0, 0.3);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .cta-content p {
@@ -1211,11 +1401,11 @@ body {
 
 .cta-button {
   padding: 1.2rem 3rem;
-  background: white;
-  color: #8B0000;
+  background: var(--light-text);
+  color: var(--primary-color);
   border: none;
   border-radius: 25px;
-  font-size: 1.1rem;
+  font-size: 极速赛车开奖直播历史记录.1rem;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -1224,7 +1414,39 @@ body {
 
 .cta-button:hover {
   transform: translateY(-3px);
-  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 12极速赛车开奖直播历史记录 25px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 968px) {
+  .testimonials-section {
+    padding: 4rem 1.5rem;
+  }
+  
+  .testimonials-grid {
+    gap: 2rem;
+  }
+  
+  .testimonial-card {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .testimonials-cta {
+    padding: 2rem;
+  }
+  
+  .cta-content h3 {
+    font-size: 1.5rem;
+  }
+  
+  .cta-button {
+    padding: 1rem 2rem;
+  }
 }
 
 /* No Results */
@@ -1240,12 +1462,19 @@ body {
   margin-bottom: 2rem;
   opacity: 0.6;
   filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+  40% {transform: translateY(-30px);}
+  60% {transform: translateY(-15px);}
 }
 
 .no-results h3 {
   font-size: 2.5rem;
   font-weight: 800;
-  color: #8B0000;
+  color: var(--primary-color);
   margin-bottom: 1rem;
   text-shadow: 0 2px 4px rgba(139, 0, 0, 0.1);
 }
@@ -1253,6 +1482,20 @@ body {
 .no-results p {
   font-size: 1.3rem;
   color: #666;
+}
+
+@media (max-width: 640px) {
+  .no-results {
+    padding: 3rem 1rem;
+  }
+  
+  .no-results-icon {
+    font-size: 5rem;
+  }
+  
+  .no-results h3 {
+    font-size: 2rem;
+  }
 }
 
 /* Reservation Modal */
@@ -1269,10 +1512,16 @@ body {
   z-index: 1000;
   padding: 2rem;
   backdrop-filter: blur(5px);
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 .reservation-modal {
-  background: white;
+  background: var(--light-text);
   border-radius: 25px;
   width: 100%;
   max-width: 800px;
@@ -1300,12 +1549,12 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #8B0000;
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--light-text);
   border-radius: 25px 25px 0 0;
 }
 
-.modal-header h2 {
+.modal-headerss h2 {
   font-size: 1.8rem;
   font-weight: 800;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -1314,12 +1563,12 @@ body {
 .close-modal {
   background: rgba(255, 255, 255, 0.2);
   border: none;
-  color: white;
+  color: var(--light-text);
   font-size: 1.8rem;
   cursor: pointer;
   line-height: 1;
   padding: 0.5rem;
-  width: 40极速赛车开奖直播历史记录;
+  width: 40px;
   height: 40px;
   display: flex;
   align-items: center;
@@ -1362,7 +1611,7 @@ body {
 .form-group label {
   font-weight: 700;
   margin-bottom: 0.8rem;
-  color: #1a202c;
+  color: var(--dark-text);
   font-size: 1rem;
 }
 
@@ -1372,19 +1621,19 @@ body {
   border-radius: 12px;
   font-size: 1rem;
   transition: all 0.3s ease;
-  background: white;
+  background: var(--light-text);
   font-weight: 500;
 }
 
 .form-group input:focus, .form-group select:focus {
   outline: none;
-  border-color: #8B0000;
+  border-color: var(--primary-color);
   box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.1);
   transform: translateY(-1px);
 }
 
 .destination-field {
-  background: linear-gradient(135deg, #f8fafc, #极速赛车开奖直播历史记录);
+  background: linear-gradient(135deg, #f8fafc, #ffffff);
   color: #333;
   font-weight: 700;
   border-color: rgba(139, 0, 0, 0.3);
@@ -1411,14 +1660,14 @@ body {
   border-radius: 12px;
   font-weight: 700;
   cursor: pointer;
-  transition: all 极速赛车开奖直播历史记录 ease;
+  transition: all 0.3s ease;
   font-size: 1rem;
 }
 
 .cancel-btn {
   background: #f8f9fa;
   color: #6b7280;
-  border: 2px solid #e5极速赛车开奖直播历史记录;
+  border: 2px solid #e5e7eb;
 }
 
 .cancel-btn:hover {
@@ -1427,8 +1676,8 @@ body {
 }
 
 .submit-btn {
-  background: linear-gradient(135deg, #8B0000, #DC143C);
-  color: white;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: var(--light-text);
   box-shadow: 0 6px 15px rgba(139, 0, 0, 0.2);
   border: 2px solid transparent;
 }
@@ -1438,10 +1687,20 @@ body {
   box-shadow: 0 8px 20px rgba(139, 0, 0, 0.3);
 }
 
+@media (max-width: 640px) {
+  .reservation-form {
+    padding: 2rem;
+  }
+  
+  .modal-headerss {
+    padding: 1.5rem 2rem;
+  }
+}
 
+/* Footer Styles */
 .voyage-footer {
   background: linear-gradient(135deg, #1a202c, #2d3748, #4a5568);
-  color: white;
+  color: var(--light-text);
   padding: 4rem 2rem 2rem;
   position: relative;
   overflow: hidden;
@@ -1457,7 +1716,7 @@ body {
   bottom: 0;
   background: 
       radial-gradient(circle at 20% 80%, rgba(139, 0, 0, 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 80% 20%, rgba(220, 20, 60, 0.1) 0%, transparent 50%);
+      radial-gradient(c极速赛车开奖直播历史记录cle at 80% 20%, rgba(220, 20, 60, 0.1) 0%, transparent 50%);
 }
 
 .voyage-container {
@@ -1490,6 +1749,11 @@ body {
   width: auto;
   object-fit: contain;
   filter: brightness(0) invert(1) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+  transition: transform 0.3s ease;
+}
+
+.voyage-logo:hover {
+  transform: scale(1.05);
 }
 
 .voyage-brand h3 {
@@ -1520,7 +1784,7 @@ body {
   left: 0;
   width: 40px;
   height: 2px;
-  background: #DC143C;
+  background: var(--secondary-color);
 }
 
 .voyage-section ul {
@@ -1532,12 +1796,13 @@ body {
   margin-bottom: 0.8rem;
   display: flex;
   align-items: center;
+  transition: all 0.3s ease;
 }
 
 .voyage-section li::before {
   content: '➔';
   margin-right: 8px;
-  color: #DC143C;
+  color: var(--secondary-color);
   font-size: 0.8rem;
   opacity: 0;
   transition: opacity 0.3s ease;
@@ -1554,7 +1819,7 @@ body {
 }
 
 .voyage-section a:hover, .voyage-section li:hover {
-  color: #DC143C;
+  color: var(--secondary-color);
   transform: translateX(5px);
 }
 
@@ -1563,6 +1828,11 @@ body {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+.contact-info p:hover {
+  color: var(--secondary-color);
 }
 
 .social-links {
@@ -1632,6 +1902,11 @@ body {
 .stat-icon {
   font-size: 2rem;
   margin-bottom: 0.5rem;
+  transition: transform 0.3s ease;
+}
+
+.stat-item:hover .stat-icon {
+  transform: scale(1.2);
 }
 
 .stat-number {
@@ -1672,13 +1947,13 @@ body {
 }
 
 .voyage-links a:hover {
-  color: #DC143C;
+  color: var(--secondary-color);
 }
 
 /* Responsive Adjustments */
-@media (max-width: 768px) {
+@media (max-width: 968px) {
   .voyage-content {
-      grid-template-columns: 1fr;
+      grid-template-columns: 1fr 1fr;
       gap: 2rem;
   }
   
@@ -1689,6 +1964,17 @@ body {
   .stat-item {
       flex: 0 0 calc(50% - 1rem);
   }
+}
+
+@media (max-width: 768px) {
+  .voyage-footer {
+      padding: 3rem 1.5rem 1.5rem;
+  }
+  
+  .voyage-content {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+  }
   
   .voyage-bottom {
       flex-direction: column;
@@ -1697,12 +1983,14 @@ body {
   
   .voyage-links {
       justify-content: center;
+      flex-wrap: wrap;
   }
 }
 
 @media (max-width: 480px) {
-  .voyage-footer {
-      padding: 3rem 1.5rem 1.5rem;
+  .voyage-stats {
+      flex-direction: column;
+      gap: 1rem;
   }
   
   .stat-item {
@@ -1713,5 +2001,95 @@ body {
       flex-direction: column;
       gap: 1rem;
   }
+  
+  .social-links {
+      justify-content: center;
+  }
 }
-       
+
+/* Font Awesome CDN */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Focus styles for accessibility */
+button:focus,
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* Reduced motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --primary-color: #000000;
+    --secondary-color: #000000;
+    --dark-text: #000000;
+  }
+  
+  .header-hero {
+    background: #000000;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --light-text: #ffffff;
+    --dark-text: #f1f5f9;
+    --light-gray: #1a202c;
+  }
+  
+  body {
+    background-color: #0f172a;
+    color: #f1f5f9;
+  }
+  
+  .search-container {
+    background: rgba(15, 23, 42, 0.98);
+  }
+  
+  .search-input {
+    background: #1e293b;
+    color: #f1f5f9;
+    border-color: #334155;
+  }
+  
+  .main-content {
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+  }
+  
+  .country-card,
+  .about-card,
+  .about-features,
+  .testimonial-card {
+    background: #1e293b;
+    color: #f1f5f9;
+  }
+  
+  .city-item {
+    background: linear-gradient(135deg, #1e293b, #334155);
+  }
+  
+  .feature-item {
+    background: linear-gradient(135deg, #1e293b, #334155);
+  }
+}

@@ -305,7 +305,7 @@ const SearchAndFilters = ({ searchTerm, setSearchTerm, selectedContinent, contin
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder="Rechercher un pays ou une ville..."
+              placeholder="Rechercher un pays ou ville..."
               className="search-input"
             />
           </div>
@@ -368,7 +368,7 @@ const CountryCard = ({ country, index, onReservationClick }) => {
       </div>
       <div className="country-footer">
         <button 
-          className="reserve-country-btn"
+          className="reserve-country-btns"
           onClick={() => onReservationClick(country.name)}
         >
           ✈️ Réserver un billet pour {country.name}
@@ -381,8 +381,8 @@ const CountryCard = ({ country, index, onReservationClick }) => {
 // Composant ContinentSection
 const ContinentSection = ({ continent, continentCountries, onReservationClick }) => {
   return (
-    <div key={continent} className="continent-section">
-      <div className="continent-header">
+    <div key={continent} className="continent-sections">
+      <div className="continent-headers">
         <div className="continent-title">
           <span className="continent-icon">{continentIcons[continent]}</span>
           <h2>{continent}</h2>
@@ -919,6 +919,8 @@ const App = () => {
         onDiscoverClick={handleDiscoverClick}
         onReservationClick={() => setShowReservationForm(true)}
       />
+      <About />
+
       
       <SearchAndFilters 
         searchTerm={searchTerm}
@@ -934,7 +936,6 @@ const App = () => {
         onReservationClick={handleReservationClick}
       />
       
-      <About />
       
       <Testimonials />
       
