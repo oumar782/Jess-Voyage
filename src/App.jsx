@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify'; // ✅ Correction : ajout de ToastContainer à l'import
+import 'react-toastify/dist/ReactToastify.css';
 
 // Import des images
 import logo from './assets/images/1.png';
@@ -30,12 +31,33 @@ import turkeyFlag from './assets/images/turkey.png';
 import chinaFlag from './assets/images/china.png';
 import uaeFlag from './assets/images/uae.png';
 
+// Images de pays pour les cartes (liens Unsplash)
+const countryImages = {
+  'Maroc': 'https://images.unsplash.com/photo-1519834064978-9b52a4a97a4a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+  'Sénégal': 'https://images.unsplash.com/photo-1571169903710-e4c2c564c243?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+  'Côte d\'Ivoire': 'https://images.unsplash.com/photo-1580522154071-c6ca47a859ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+  'Mali': 'https://images.unsplash.com/photo-1580737661766-2a70c5617c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+  'Ghana': 'https://images.unsplash.com/photo-1568055243896-2a0b2e15b2f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+  'Nigéria': 'https://images.unsplash.com/photo-1580737661766-2a70c5617c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+  'Éthiopie': 'https://images.unsplash.com/photo-1580737661766-2a70c5617c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+  'Afrique du Sud': 'https://images.unsplash.com/photo-1520250497590-44741ad43a65?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+  'Guinée-Bissau': 'https://images.unsplash.com/photo-1580737661766-2a70c5617c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+  'France': 'https://images.unsplash.com/photo-1502602898536-47ad22581b52?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+  'Belgique': 'https://images.unsplash.com/photo-1519677100203-a0e668c92439?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+  'Italie': 'https://images.unsplash.com/photo-1515542622106-78bda8ba0e5b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+  'Espagne': 'https://images.unsplash.com/photo-1467269204594-9661b134dd2b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+  'Allemagne': 'https://images.unsplash.com/photo-1467269204594-9661b134dd2b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+  'Angleterre': 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+  'États-Unis': 'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+  'Canada': 'https://images.unsplash.com/photo-1519834064978-9b52a4a97a4a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+  'Turquie': 'https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+  'Chine': 'https://images.unsplash.com/photo-1508804185872-d7badad00f7d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+  'Émirats Arabes Unis': 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
+};
+
 // Icône d'avion pour la navigation (composant SVG)
 const Plane = ({ className }) => (
-  <svg 
-    className={className}
-   
-  >
+  <svg className={className} viewBox="0 0 24 24" width="20" height="20">
     <path fill="currentColor" d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19L8 20.5V22l4-1 4 1v-1.5L13 19v-5.5l8 2.5z" />
   </svg>
 );
@@ -103,11 +125,9 @@ const testimonialsData = [
 // Composant Navigation
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -115,7 +135,6 @@ const Navigation = () => {
     }
     setIsMenuOpen(false);
   };
-
   return (
     <header className="header-nav">
       <nav className="nav">
@@ -123,7 +142,6 @@ const Navigation = () => {
           <img src={logo} alt="Logo Jess Voyages" className="nav-logo-img" />
           <span className="nav-brand-name">Jess Voyages</span>
         </div>
-        
         <div className={`nav-links ${isMenuOpen ? 'nav-links-open' : ''}`}>
           <a href="#destinations" className="nav-link" onClick={() => scrollToSection('destinations')}>
             Destinations
@@ -138,7 +156,6 @@ const Navigation = () => {
             Contact
           </a>
         </div>
-
         <button className={`mobile-menu-button ${isMenuOpen ? 'active' : ''}`} onClick={toggleMenu}>
           <span></span>
           <span></span>
@@ -156,7 +173,6 @@ const Header = ({ filteredCountries, filteredContinents, totalCities, onDiscover
   const [isDeleting, setIsDeleting] = useState(false);
   const [typingSpeed, setTypingSpeed] = useState(150);
   const [textIndex, setTextIndex] = useState(0);
-  
   const texts = [
     "Votre partenaire de confiance pour découvrir le monde.",
     "Des destinations exceptionnelles, un service premium.",
@@ -166,77 +182,64 @@ const Header = ({ filteredCountries, filteredContinents, totalCities, onDiscover
   useEffect(() => {
     const current = textIndex % texts.length;
     const fullText = texts[current];
-
     const handleTyping = () => {
       if (isDeleting) {
-        // Effacer le texte
         if (currentText === '') {
           setIsDeleting(false);
           setTextIndex((prev) => (prev + 1) % texts.length);
-          setTypingSpeed(500);
+          setTypingSpeed(2000);
           return;
         }
-        
         setCurrentText(fullText.substring(0, currentText.length - 1));
         setTypingSpeed(typingSpeed / 1.5);
       } else {
-        // Écrire le texte
         if (currentText === fullText) {
           setTypingSpeed(2000);
           setIsDeleting(true);
           return;
         }
-        
         setCurrentText(fullText.substring(0, currentText.length + 1));
         setTypingSpeed(150);
       }
     };
-
     const timer = setTimeout(handleTyping, typingSpeed);
     return () => clearTimeout(timer);
-  }, [currentText, isDeleting, textIndex, texts, typingSpeed]);
+  }, [currentText, isDeleting, textIndex, typingSpeed]);
 
   // Animation des images d'arrière-plan
   const [currentBg, setCurrentBg] = useState(0);
   const bgImages = [hero1, hero2, hero3];
-  
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentBg((prev) => (prev + 1) % bgImages.length);
     }, 5000);
-    
     return () => clearInterval(interval);
   }, []);
 
   return (
     <div className="header-hero" style={{ backgroundImage: `url(${bgImages[currentBg]})` }}>
       <div className="header-overlay"></div>
-      
       <Navigation />
-      
       <div className="header-content">
         <div className="header-title">
           <div className="globe-icon"></div>
           <h1>Jess Voyages</h1>
         </div>
-        
         <div className="typewriter-container">
           <p className="header-description typewriter-text">
             {currentText}
             <span className="typewriter-cursor">|</span>
           </p>
         </div>
-        
         <div className="header-buttons">
           <button className="discover-btn" onClick={onDiscoverClick}>
             <Plane className="btn-icon" />
-            Découvrir nos destinations
+            Découvrir nos destinations les plus demandées
           </button>
           <button className="reserve-header-btn" onClick={onReservationClick}>
             Réserver un billet
           </button>
         </div>
-        
         <div className="stats-container">
           <div className="stat-card">
             <div className="stat-content">
@@ -296,7 +299,6 @@ const SearchAndFilters = ({ searchTerm, setSearchTerm, selectedContinent, contin
               className="search-input"
             />
           </div>
-          
           <div className="filter-buttons">
             <button 
               className={`filter-btn ${selectedContinent === '' ? 'active' : ''}`}
@@ -324,7 +326,8 @@ const SearchAndFilters = ({ searchTerm, setSearchTerm, selectedContinent, contin
 const CountryCard = ({ country, index, onReservationClick }) => {
   return (
     <div className="country-card" style={{ animationDelay: `${index * 100}ms` }}>
-      <div className="country-header">
+      <div className="country-header" style={{ backgroundImage: `url(${countryImages[country.name]})` }}>
+        <div className="country-header-overlay"></div>
         <div className="country-header-decoration"></div>
         <div className="country-header-content">
           <div className="country-flag-row">
@@ -412,7 +415,6 @@ const CountryList = ({ filteredCountries, continents, onReservationClick }) => {
       {continents.map(continent => {
         const continentCountries = groupedCountries[continent];
         if (continentCountries.length === 0) return null;
-        
         return (
           <ContinentSection 
             key={continent}
@@ -431,19 +433,18 @@ const About = () => {
   return (
     <section id="about" className="about-section">
       <div className="about-container">
-        <div className="about-header">
+        <div className="about-headers">
           <h2>À propos de Jess Voyages</h2>
           <div className="about-subtitle">
-            <span className="about-icon"></span>
+            <span className="about-icon">🌟</span>
             Votre partenaire de confiance depuis plus de 15 ans
           </div>
         </div>
-        
         <div className="about-content">
           <div className="about-text">
             <div className="about-card">
               <div className="about-card-header">
-                <div className="about-card-icon"></div>
+                <div className="about-card-icon">🎯</div>
                 <h3>Notre Mission</h3>
               </div>
               <p>
@@ -451,10 +452,9 @@ const About = () => {
                 en combinant expertise locale, service personnalisé et prix compétitifs.
               </p>
             </div>
-            
             <div className="about-card">
               <div className="about-card-header">
-                <div className="about-card-icon"></div>
+                <div className="about-card-icon">👁️</div>
                 <h3>Notre Vision</h3>
               </div>
               <p>
@@ -462,10 +462,9 @@ const About = () => {
                 qui dépasse les attentes de nos clients à chaque étape de leur aventure.
               </p>
             </div>
-            
             <div className="about-card">
               <div className="about-card-header">
-                <div className="about-card-icon"></div>
+                <div className="about-card-icon">💎</div>
                 <h3>Nos Valeurs</h3>
               </div>
               <p>
@@ -474,35 +473,31 @@ const About = () => {
               </p>
             </div>
           </div>
-          
           <div className="about-features">
             <div className="feature-grid">
               <div className="feature-item">
-                <div className="feature-icon"></div>
+                <div className="feature-icon">⏳</div>
                 <div className="feature-content">
                   <h4>15+ Années d'Expérience</h4>
                   <p>Une expertise reconnue dans l'industrie du voyage</p>
                 </div>
               </div>
-              
               <div className="feature-item">
-                <div className="feature-icon"></div>
+                <div className="feature-icon">🌐</div>
                 <div className="feature-content">
                   <h4>20 Pays Desservis</h4>
                   <p>Un réseau mondial pour vos destinations de rêve</p>
                 </div>
               </div>
-              
               <div className="feature-item">
-                <div className="feature-icon"></div>
+                <div className="feature-icon">😊</div>
                 <div className="feature-content">
                   <h4>50,000+ Clients Satisfaits</h4>
                   <p>Une communauté de voyageurs qui nous font confiance</p>
                 </div>
               </div>
-              
               <div className="feature-item">
-                <div className="feature-icon"></div>
+                <div className="feature-icon">🔄</div>
                 <div className="feature-content">
                   <h4>Service 24/7</h4>
                   <p>Un support disponible à tout moment</p>
@@ -525,7 +520,6 @@ const Testimonials = () => {
           <h2>Témoignages de nos clients</h2>
           <p>Découvrez ce que nos voyageurs disent de leurs expériences</p>
         </div>
-        
         <div className="testimonials-grid">
           {testimonialsData.map((testimonial, index) => (
             <div key={index} className="testimonial-card" style={{ animationDelay: `${index * 200}ms` }}>
@@ -537,7 +531,7 @@ const Testimonials = () => {
                 </div>
                 <div className="testimonial-rating">
                   {[...Array(testimonial.rating)].map((_, i) => (
-                    <span key={i} className="star"></span>
+                    <span key={i} className="star">⭐</span>
                   ))}
                 </div>
               </div>
@@ -547,7 +541,6 @@ const Testimonials = () => {
             </div>
           ))}
         </div>
-        
         <div className="testimonials-cta">
           <div className="cta-content">
             <h3>Prêt pour votre prochaine aventure ?</h3>
@@ -565,7 +558,16 @@ const Testimonials = () => {
 // Composant ReservationModal
 const ReservationModal = ({ showReservationForm, setShowReservationForm, reservationData, setReservationData, selectedDestination }) => {
   const [step, setStep] = useState(1);
-  
+  const [isHeaderReservation, setIsHeaderReservation] = useState(false);
+
+  useEffect(() => {
+    if (selectedDestination === '') {
+      setIsHeaderReservation(true);
+    } else {
+      setIsHeaderReservation(false);
+    }
+  }, [selectedDestination]);
+
   if (!showReservationForm) return null;
 
   const handleInputChange = (e) => {
@@ -577,6 +579,20 @@ const ReservationModal = ({ showReservationForm, setShowReservationForm, reserva
   };
 
   const handleNextStep = () => {
+    if (step === 1) {
+      if (!reservationData.lieuDepart) {
+        toast.error('Veuillez saisir le lieu de départ');
+        return;
+      }
+      if (!reservationData.dateDepart) {
+        toast.error('Veuillez sélectionner la date de départ');
+        return;
+      }
+      if (isHeaderReservation && !reservationData.destination) {
+        toast.error('Veuillez saisir la destination');
+        return;
+      }
+    }
     setStep(2);
   };
 
@@ -586,9 +602,26 @@ const ReservationModal = ({ showReservationForm, setShowReservationForm, reserva
 
   const handleReservationSubmit = async (e) => {
     e.preventDefault();
-    
     try {
-      // Préparer les données pour l'API
+      if (step === 2) {
+        if (!reservationData.nom) {
+          toast.error('Veuillez saisir votre nom');
+          return;
+        }
+        if (!reservationData.prenom) {
+          toast.error('Veuillez saisir votre prénom');
+          return;
+        }
+        if (!reservationData.email) {
+          toast.error('Veuillez saisir votre email');
+          return;
+        }
+        if (!reservationData.telephone) {
+          toast.error('Veuillez saisir votre téléphone');
+          return;
+        }
+      }
+
       const apiData = {
         destination: reservationData.destination,
         nom: reservationData.nom,
@@ -602,7 +635,6 @@ const ReservationModal = ({ showReservationForm, setShowReservationForm, reserva
         classe: reservationData.classe
       };
 
-      // Envoyer les données à l'API
       const response = await fetch('http://localhost:5000/api/reservations/', {
         method: 'POST',
         headers: {
@@ -617,13 +649,10 @@ const ReservationModal = ({ showReservationForm, setShowReservationForm, reserva
       }
 
       const result = await response.json();
+      toast.success('Réservation confirmée avec succès!');
 
-      // Toast de succès
-      toast.success(' Réservation confirmée avec succès!');
-
-      // Réinitialiser le formulaire
       setReservationData({
-        destination: selectedDestination || '',
+        destination: '',
         nom: '',
         prenom: '',
         email: '',
@@ -635,16 +664,12 @@ const ReservationModal = ({ showReservationForm, setShowReservationForm, reserva
         classe: 'Economique'
       });
 
-      // Fermer le modal après un délai
       setTimeout(() => {
         setShowReservationForm(false);
         setStep(1);
       }, 2000);
-
     } catch (error) {
       console.error('Erreur:', error);
-      
-      // Toast d'erreur
       toast.error(`❌ ${error.message}`);
     }
   };
@@ -656,24 +681,36 @@ const ReservationModal = ({ showReservationForm, setShowReservationForm, reserva
           <h2>Réserver votre billet</h2>
           <button className="close-modal" onClick={() => {setShowReservationForm(false); setStep(1);}}>×</button>
         </div>
-        
         <div className="reservation-steps">
           <div className={`step ${step === 1 ? 'active' : ''}`}>1. Destination</div>
           <div className={`step ${step === 2 ? 'active' : ''}`}>2. Informations</div>
         </div>
-        
         <form onSubmit={handleReservationSubmit} className="reservation-form">
           {step === 1 && (
             <div className="form-step">
-              <div className="form-group">
-                <label>Destination *</label>
-                <input 
-                  type="text" 
-                  value={reservationData.destination} 
-                  className="destination-field"
-                />
-              </div>
-              
+              {isHeaderReservation ? (
+                <div className="form-group">
+                  <label>Destination *</label>
+                  <input 
+                    type="text" 
+                    name="destination"
+                    value={reservationData.destination} 
+                    onChange={handleInputChange}
+                    placeholder="Ex: Paris, France"
+                    required 
+                  />
+                </div>
+              ) : (
+                <div className="form-group">
+                  <label>Destination *</label>
+                  <input 
+                    type="text" 
+                    value={reservationData.destination} 
+                    className="destination-field"
+                    readOnly
+                  />
+                </div>
+              )}
               <div className="form-group">
                 <label>Lieu de départ *</label>
                 <input 
@@ -685,7 +722,6 @@ const ReservationModal = ({ showReservationForm, setShowReservationForm, reserva
                   required 
                 />
               </div>
-              
               <div className="form-row">
                 <div className="form-group">
                   <label>Date de départ *</label>
@@ -707,7 +743,6 @@ const ReservationModal = ({ showReservationForm, setShowReservationForm, reserva
                   />
                 </div>
               </div>
-              
               <div className="form-actions">
                 <button type="button" onClick={() => setShowReservationForm(false)} className="cancel-btn">
                   Annuler
@@ -718,7 +753,6 @@ const ReservationModal = ({ showReservationForm, setShowReservationForm, reserva
               </div>
             </div>
           )}
-          
           {step === 2 && (
             <div className="form-step">
               <div className="form-row">
@@ -743,7 +777,6 @@ const ReservationModal = ({ showReservationForm, setShowReservationForm, reserva
                   />
                 </div>
               </div>
-              
               <div className="form-row">
                 <div className="form-group">
                   <label>Email *</label>
@@ -766,7 +799,6 @@ const ReservationModal = ({ showReservationForm, setShowReservationForm, reserva
                   />
                 </div>
               </div>
-              
               <div className="form-row">
                 <div className="form-group">
                   <label>Nombre de passagers *</label>
@@ -795,7 +827,6 @@ const ReservationModal = ({ showReservationForm, setShowReservationForm, reserva
                   </select>
                 </div>
               </div>
-              
               <div className="form-actions">
                 <button type="button" onClick={handlePreviousStep} className="previous-btn">
                   Retour
@@ -815,7 +846,6 @@ const ReservationModal = ({ showReservationForm, setShowReservationForm, reserva
 // Composant Footer
 const Footer = ({ countries, continents }) => {
   const totalCities = countries.reduce((sum, c) => sum + c.cities.length, 0);
-  
   return (
     <footer className="voyage-footer" id="contact">
       <div className="voyage-container">
@@ -842,7 +872,6 @@ const Footer = ({ countries, continents }) => {
               </a>
             </div>
           </div>
-          
           <div className="voyage-section">
             <h4>Nos Services</h4>
             <ul>
@@ -854,7 +883,6 @@ const Footer = ({ countries, continents }) => {
               <li>Assurance voyage</li>
             </ul>
           </div>
-          
           <div className="voyage-section">
             <h4>Destinations Populaires</h4>
             <ul>
@@ -866,7 +894,6 @@ const Footer = ({ countries, continents }) => {
               <li>Bali, Indonésie</li>
             </ul>
           </div>
-          
           <div className="voyage-section">
             <h4>Contact</h4>
             <div className="contact-info">
@@ -877,30 +904,28 @@ const Footer = ({ countries, continents }) => {
             </div>
           </div>
         </div>
-        
         <div className="voyage-stats">
           <div className="stat-item">
-            <div className="stat-icon"></div>
+            <div className="stat-icon">🌐</div>
             <div className="stat-number">{countries.length}</div>
             <div className="stat-label">pays</div>
           </div>
           <div className="stat-item">
-            <div className="stat-icon"></div>
+            <div className="stat-icon">🏙️</div>
             <div className="stat-number">{totalCities}</div>
             <div className="stat-label">villes</div>
           </div>
           <div className="stat-item">
-            <div className="stat-icon"></div>
+            <div className="stat-icon">🗺️</div>
             <div className="stat-number">{continents.length}</div>
             <div className="stat-label">continents</div>
           </div>
           <div className="stat-item">
-            <div className="stat-icon"></div>
+            <div className="stat-icon">⏳</div>
             <div className="stat-number">15+</div>
             <div className="stat-label">années</div>
           </div>
         </div>
-        
         <div className="voyage-bottom">
           <p className="voyage-copyright">&copy; 2024 Jess Voyages. Tous droits réservés.</p>
           <div className="voyage-links">
@@ -935,23 +960,19 @@ const App = () => {
     destination: ''
   });
 
-  // Calculer les statistiques
   const totalCities = filteredCountries.reduce((sum, country) => sum + country.cities.length, 0);
   const filteredContinents = [...new Set(filteredCountries.map(c => c.continent))];
 
   useEffect(() => {
-    // Extraire tous les continents uniques
     const allContinents = [...new Set(countriesData.map(c => c.continent))];
     setContinents(allContinents);
-    
-    // Filtrer les pays
+
     const filtered = countriesData.filter(country => {
       const matchesSearch = country.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         country.cities.some(city => city.toLowerCase().includes(searchTerm.toLowerCase()));
+                           country.cities.some(city => city.toLowerCase().includes(searchTerm.toLowerCase()));
       const matchesContinent = !selectedContinent || country.continent === selectedContinent;
       return matchesSearch && matchesContinent;
     });
-    
     setFilteredCountries(filtered);
   }, [searchTerm, selectedContinent]);
 
@@ -962,10 +983,19 @@ const App = () => {
   const handleReservationClick = (countryName, cityName = '') => {
     const destination = cityName ? `${cityName}, ${countryName}` : countryName;
     setSelectedDestination(destination);
-    setReservationData({
-      ...reservationData,
-      destination: destination
-    });
+    setReservationData(prev => ({
+      ...prev,
+      destination
+    }));
+    setShowReservationForm(true);
+  };
+
+  const handleHeaderReservationClick = () => {
+    setSelectedDestination('');
+    setReservationData(prev => ({
+      ...prev,
+      destination: ''
+    }));
     setShowReservationForm(true);
   };
 
@@ -978,15 +1008,26 @@ const App = () => {
 
   return (
     <div id="app">
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <Header 
         filteredCountries={filteredCountries}
         filteredContinents={filteredContinents}
         totalCities={totalCities}
         onDiscoverClick={handleDiscoverClick}
-        onReservationClick={() => setShowReservationForm(true)}
+        onReservationClick={handleHeaderReservationClick}
       />
       <About />
-      
       <SearchAndFilters 
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
@@ -994,15 +1035,12 @@ const App = () => {
         continents={continents}
         handleContinentFilter={handleContinentFilter}
       />
-      
       <CountryList 
         filteredCountries={filteredCountries}
         continents={continents}
         onReservationClick={handleReservationClick}
       />
-      
       <Testimonials />
-      
       <ReservationModal 
         showReservationForm={showReservationForm}
         setShowReservationForm={setShowReservationForm}
@@ -1010,7 +1048,6 @@ const App = () => {
         setReservationData={setReservationData}
         selectedDestination={selectedDestination}
       />
-      
       <Footer 
         countries={countriesData}
         continents={continents}
