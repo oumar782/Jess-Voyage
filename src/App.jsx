@@ -270,7 +270,7 @@ const Header = ({ filteredCountries, filteredContinents, totalCities, onDiscover
         <div className="header-buttons">
           <button className="discover-btn" onClick={onDiscoverClick}>
             <Plane className="btn-icon" />
-            Découvrir nos destinations
+            Découvrir nos destinations frequents
           </button>
           <button className="reserve-header-btn" onClick={onReservationClick}>
             Réserver un billet
