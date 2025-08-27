@@ -21,16 +21,16 @@ import southafricaImg from './assets/images/south.jpg';
 import guineabissauImg from './assets/images/guinea.jpg';
 import franceImg from './assets/img/paris.jpg';
 
-import belgiumImg from './assets/images/belgique.Jpg';
-import italyImg from './assets/images/italy.Jpg';
-import spainImg from './assets/images/spain.Jpg';
-import germanyImg from './assets/images/allemand.Jpg';
-import englandImg from './assets/images/england.Jpg';
-import usaImg from './assets/images/usa.Jpg';
-import canadaImg from './assets/images/canada.Jpg';
-import turkeyImg from './assets/images/turkey.Jpg';
-import chinaImg from './assets/images/china.Jpg';
-import uaeImg from './assets/images/uae.Jpg';
+import belgiumImg from './assets/images/belgique.jpg';
+import italyImg from './assets/images/italy.jpg';
+import spainImg from './assets/images/spain.jpg';
+import germanyImg from './assets/images/allemand.jpg';
+import englandImg from './assets/images/england.jpg';
+import usaImg from './assets/images/usa.jpg';
+import canadaImg from './assets/images/canada.jpg';
+import turkeyImg from './assets/images/turkey.jpg';
+import chinaImg from './assets/images/china.jpg';
+import uaeImg from './assets/images/uae.jpg';
 
 // Import des drapeaux
 import moroccoFlag from './assets/images/flag.png';
