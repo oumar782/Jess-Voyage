@@ -19,7 +19,7 @@ import nigeriaImg from './assets/images/nigeria.jpg';
 import ethiopiaImg from './assets/images/ethiopie.jpg';
 import southafricaImg from './assets/images/south.jpg';
 import guineabissauImg from './assets/images/guinea.jpg';
-import franceImg from './assets/images/paris.Jpg';
+import franceImg from './assets/img/paris.Jpg';
 import belgiumImg from './assets/images/belgique.Jpg';
 import italyImg from './assets/images/italy.Jpg';
 import spainImg from './assets/images/spain.Jpg';
