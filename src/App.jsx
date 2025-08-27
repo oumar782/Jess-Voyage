@@ -489,7 +489,7 @@ const About = () => {
             </div>
             <div className="about-card">
               <div className="about-card-header">
-                <div className="about-card-icon">👁️</div>
+                <div className="about-card-icon"></div>
                 <h3>Notre Vision</h3>
               </div>
               <p>
@@ -511,7 +511,7 @@ const About = () => {
           <div className="about-features">
             <div className="feature-grid">
               <div className="feature-item">
-                <div className="feature-icon">⏳</div>
+                <div className="feature-icon"></div>
                 <div className="feature-content">
                   <h4>15+ Années d'Expérience</h4>
                   <p>Une expertise reconnue dans l'industrie du voyage</p>
@@ -525,7 +525,7 @@ const About = () => {
                 </div>
               </div>
               <div className="feature-item">
-                <div className="feature-icon">👥</div>
+                <div className="feature-icon"></div>
                 <div className="feature-content">
                   <h4>50,000+ Clients Satisfaits</h4>
                   <p>Une communauté de voyageurs qui nous font confiance</p>
