@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import { toast, ToastContainer } from 'react-toastify'; // ✅ Correction : ajout de ToastContainer à l'import
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 // Import des images
@@ -8,6 +8,28 @@ import logo from './assets/images/1.png';
 import hero1 from './assets/images/WhatsApp Image 2025-08-25 à 01.27.45_5f769776.jpg';
 import hero2 from './assets/images/WhatsApp Image 2025-08-25 à 01.27.46_0a577508.jpg';
 import hero3 from './assets/images/WhatsApp Image 2025-08-25 à 01.27.46_e1c29759.jpg';
+
+// Import des images de pays
+import marocImg from './assets/images/Senegal.webp';
+import senegalImg from './assets/images/maroc.jpg';
+import cotedivoireImg from './assets/images/Coteivoire.jpg';
+import maliImg from './assets/images/mali.jpg';
+import ghanaImg from './assets/images/ghana.jpg';
+import nigeriaImg from './assets/images/nigeria.jpg';
+import ethiopiaImg from './assets/images/ethiopie.jpg';
+import southafricaImg from './assets/images/south.jpg';
+import guineabissauImg from './assets/images/guinea.jpg';
+import franceImg from './assets/images/paris.Jpg';
+import belgiumImg from './assets/images/belgique.Jpg';
+import italyImg from './assets/images/italy.Jpg';
+import spainImg from './assets/images/spain.Jpg';
+import germanyImg from './assets/images/allemand.Jpg';
+import englandImg from './assets/images/england.Jpg';
+import usaImg from './assets/images/usa.Jpg';
+import canadaImg from './assets/images/canada.Jpg';
+import turkeyImg from './assets/images/turkey.Jpg';
+import chinaImg from './assets/images/china.Jpg';
+import uaeImg from './assets/images/uae.Jpg';
 
 // Import des drapeaux
 import moroccoFlag from './assets/images/flag.png';
@@ -31,28 +53,28 @@ import turkeyFlag from './assets/images/turkey.png';
 import chinaFlag from './assets/images/china.png';
 import uaeFlag from './assets/images/uae.png';
 
-// Images de pays pour les cartes (liens Unsplash)
+// Images de pays pour les cartes
 const countryImages = {
-  'Maroc': 'https://images.unsplash.com/photo-1519834064978-9b52a4a97a4a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-  'Sénégal': 'https://images.unsplash.com/photo-1571169903710-e4c2c564c243?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-  'Côte d\'Ivoire': 'https://images.unsplash.com/photo-1580522154071-c6ca47a859ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-  'Mali': 'https://images.unsplash.com/photo-1580737661766-2a70c5617c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-  'Ghana': 'https://images.unsplash.com/photo-1568055243896-2a0b2e15b2f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-  'Nigéria': 'https://images.unsplash.com/photo-1580737661766-2a70c5617c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-  'Éthiopie': 'https://images.unsplash.com/photo-1580737661766-2a70c5617c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-  'Afrique du Sud': 'https://images.unsplash.com/photo-1520250497590-44741ad43a65?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-  'Guinée-Bissau': 'https://images.unsplash.com/photo-1580737661766-2a70c5617c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-  'France': 'https://images.unsplash.com/photo-1502602898536-47ad22581b52?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-  'Belgique': 'https://images.unsplash.com/photo-1519677100203-a0e668c92439?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-  'Italie': 'https://images.unsplash.com/photo-1515542622106-78bda8ba0e5b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-  'Espagne': 'https://images.unsplash.com/photo-1467269204594-9661b134dd2b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-  'Allemagne': 'https://images.unsplash.com/photo-1467269204594-9661b134dd2b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-  'Angleterre': 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-  'États-Unis': 'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-  'Canada': 'https://images.unsplash.com/photo-1519834064978-9b52a4a97a4a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-  'Turquie': 'https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-  'Chine': 'https://images.unsplash.com/photo-1508804185872-d7badad00f7d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-  'Émirats Arabes Unis': 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
+  'Maroc': marocImg,
+  'Sénégal': senegalImg,
+  'Côte d\'Ivoire': cotedivoireImg,
+  'Mali': maliImg,
+  'Ghana': ghanaImg,
+  'Nigéria': nigeriaImg,
+  'Éthiopie': ethiopiaImg,
+  'Afrique du Sud': southafricaImg,
+  'Guinée-Bissau': guineabissauImg,
+  'France': franceImg,
+  'Belgique': belgiumImg,
+  'Italie': italyImg,
+  'Espagne': spainImg,
+  'Allemagne': germanyImg,
+  'Angleterre': englandImg,
+  'États-Unis': usaImg,
+  'Canada': canadaImg,
+  'Turquie': turkeyImg,
+  'Chine': chinaImg,
+  'Émirats Arabes Unis': uaeImg
 };
 
 // Icône d'avion pour la navigation (composant SVG)
@@ -125,9 +147,21 @@ const testimonialsData = [
 // Composant Navigation
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+  
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+  
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -135,8 +169,9 @@ const Navigation = () => {
     }
     setIsMenuOpen(false);
   };
+  
   return (
-    <header className="header-nav">
+    <header className={`header-nav ${isScrolled ? 'scrolled' : ''}`}>
       <nav className="nav">
         <div className="nav-brand">
           <img src={logo} alt="Logo Jess Voyages" className="nav-logo-img" />
@@ -234,7 +269,7 @@ const Header = ({ filteredCountries, filteredContinents, totalCities, onDiscover
         <div className="header-buttons">
           <button className="discover-btn" onClick={onDiscoverClick}>
             <Plane className="btn-icon" />
-            Découvrir nos destinations les plus demandées
+            Découvrir nos destinations
           </button>
           <button className="reserve-header-btn" onClick={onReservationClick}>
             Réserver un billet
@@ -436,7 +471,7 @@ const About = () => {
         <div className="about-headers">
           <h2>À propos de Jess Voyages</h2>
           <div className="about-subtitle">
-            <span className="about-icon">🌟</span>
+            <span className="about-icon"></span>
             Votre partenaire de confiance depuis plus de 15 ans
           </div>
         </div>
@@ -444,7 +479,7 @@ const About = () => {
           <div className="about-text">
             <div className="about-card">
               <div className="about-card-header">
-                <div className="about-card-icon">🎯</div>
+                <div className="about-card-icon"></div>
                 <h3>Notre Mission</h3>
               </div>
               <p>
@@ -464,7 +499,7 @@ const About = () => {
             </div>
             <div className="about-card">
               <div className="about-card-header">
-                <div className="about-card-icon">💎</div>
+                <div className="about-card-icon"></div>
                 <h3>Nos Valeurs</h3>
               </div>
               <p>
@@ -483,21 +518,21 @@ const About = () => {
                 </div>
               </div>
               <div className="feature-item">
-                <div className="feature-icon">🌐</div>
+                <div className="feature-icon"></div>
                 <div className="feature-content">
                   <h4>20 Pays Desservis</h4>
                   <p>Un réseau mondial pour vos destinations de rêve</p>
                 </div>
               </div>
               <div className="feature-item">
-                <div className="feature-icon">😊</div>
+                <div className="feature-icon">👥</div>
                 <div className="feature-content">
                   <h4>50,000+ Clients Satisfaits</h4>
                   <p>Une communauté de voyageurs qui nous font confiance</p>
                 </div>
               </div>
               <div className="feature-item">
-                <div className="feature-icon">🔄</div>
+                <div className="feature-icon"></div>
                 <div className="feature-content">
                   <h4>Service 24/7</h4>
                   <p>Un support disponible à tout moment</p>
@@ -531,7 +566,7 @@ const Testimonials = () => {
                 </div>
                 <div className="testimonial-rating">
                   {[...Array(testimonial.rating)].map((_, i) => (
-                    <span key={i} className="star">⭐</span>
+                    <span key={i} className="star"></span>
                   ))}
                 </div>
               </div>
@@ -635,7 +670,7 @@ const ReservationModal = ({ showReservationForm, setShowReservationForm, reserva
         classe: reservationData.classe
       };
 
-      const response = await fetch('http://localhost:5000/api/reservations/', {
+      const response = await fetch('https://jessback.vercel.app/api/reservations/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -720,6 +755,7 @@ const ReservationModal = ({ showReservationForm, setShowReservationForm, reserva
                   onChange={handleInputChange}
                   placeholder="Ex: Casablanca, Maroc"
                   required 
+                  autoComplete="off"
                 />
               </div>
               <div className="form-row">
@@ -764,6 +800,7 @@ const ReservationModal = ({ showReservationForm, setShowReservationForm, reserva
                     value={reservationData.nom} 
                     onChange={handleInputChange}
                     required 
+                    autoComplete="name"
                   />
                 </div>
                 <div className="form-group">
@@ -774,6 +811,7 @@ const ReservationModal = ({ showReservationForm, setShowReservationForm, reserva
                     value={reservationData.prenom} 
                     onChange={handleInputChange}
                     required 
+                    autoComplete="given-name"
                   />
                 </div>
               </div>
@@ -786,6 +824,7 @@ const ReservationModal = ({ showReservationForm, setShowReservationForm, reserva
                     value={reservationData.email} 
                     onChange={handleInputChange}
                     required 
+                    autoComplete="email"
                   />
                 </div>
                 <div className="form-group">
@@ -796,6 +835,7 @@ const ReservationModal = ({ showReservationForm, setShowReservationForm, reserva
                     value={reservationData.telephone} 
                     onChange={handleInputChange}
                     required 
+                    autoComplete="tel"
                   />
                 </div>
               </div>
@@ -906,22 +946,22 @@ const Footer = ({ countries, continents }) => {
         </div>
         <div className="voyage-stats">
           <div className="stat-item">
-            <div className="stat-icon">🌐</div>
+            <div className="stat-icon"></div>
             <div className="stat-number">{countries.length}</div>
             <div className="stat-label">pays</div>
           </div>
           <div className="stat-item">
-            <div className="stat-icon">🏙️</div>
+            <div className="stat-icon"></div>
             <div className="stat-number">{totalCities}</div>
             <div className="stat-label">villes</div>
           </div>
           <div className="stat-item">
-            <div className="stat-icon">🗺️</div>
+            <div className="stat-icon"></div>
             <div className="stat-number">{continents.length}</div>
             <div className="stat-label">continents</div>
           </div>
           <div className="stat-item">
-            <div className="stat-icon">⏳</div>
+            <div className="stat-icon"></div>
             <div className="stat-number">15+</div>
             <div className="stat-label">années</div>
           </div>
