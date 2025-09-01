@@ -1,7 +1,7 @@
 // src/components/Navigation.jsx
 import React, { useState, useEffect } from 'react';
 import logo from './assets/images/1.png';
-import './app.css';
+import '../src/style/Footer.css';
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
