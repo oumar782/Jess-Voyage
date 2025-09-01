@@ -274,10 +274,10 @@ const Header = ({ filteredCountries, filteredContinents, totalCities, onDiscover
           </p>
         </div>
         <div className="header-buttons">
-          <button className="discover-btn" onClick={onDiscoverClick}>
-            <Plane className="btn-icon" />
-            Découvrir nos destinations frequents
-          </button>
+        <button className="discover-btn" onClick={() => window.location.href = '/Nos-Gp'}>
+  <Plane className="btn-icon" />
+ Nos prochaines envoi de colis
+</button>
           <button className="reserve-header-btn" onClick={onReservationClick}>
             Réserver un billet
           </button>
