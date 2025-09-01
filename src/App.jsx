@@ -4,7 +4,6 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Gp from './Homepage.jsx';
-import Calendrier from '../src/composant/CalendrierPage.jsx';
 
 // Import des images
 import logo from './assets/images/1.png';
@@ -993,7 +992,6 @@ const App = () => {
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="/Nos-Gp" element={<Gp />} />
-          <Route path="/calendrier" element={<Calendrier />} />
         </Routes>
       </div>
     </Router>
@@ -1118,14 +1116,6 @@ const MainPage = () => {
 };
 
 // Composant pour la page GP (à personnaliser selon vos besoins)
-const GpPage = () => {
-  return (
-    <div>
-      <h1>Page GP</h1>
-      <p>Contenu de la page GP</p>
-      <Link to="/">Retour à l'accueil</Link>
-    </div>
-  );
-};
 
-export default App;
+
+export default App; 
