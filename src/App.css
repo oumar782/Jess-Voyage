@@ -1127,12 +1127,13 @@ body {
   margin-bottom: 4rem;
 }
 
-.about-headers h2 {
+.about-headerss h2 {
   font-size: clamp(2.5rem, 5vw, 3.5rem);
   font-weight: 900;
   color: var(--dark-text);
   margin-bottom: 1rem;
-  background: linear-gradient(135deg, var(--primary极速赛车开奖直播历史记录or), var(--secondary-color));
+  margin-left: 13rem;
+  background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -1146,6 +1147,8 @@ body {
   font-size: 1.2rem;
   color: var(--gray-text);
   font-weight: 600;
+  margin-bottom: 2rem;
+
 }
 
 .about-icon {

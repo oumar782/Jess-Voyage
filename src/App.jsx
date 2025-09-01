@@ -475,7 +475,7 @@ const About = () => {
   return (
     <section id="about" className="about-section">
       <div className="about-container">
-        <div className="about-headers">
+        <div className="about-headerss">
           <h2>À propos de Jess Voyages</h2>
           <div className="about-subtitle">
             <span className="about-icon"></span>
