@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Gp from './Homepage.jsx';
+import Calendrier from '../src/composant/CalendrierPage.jsx';
 
 // Import des images
 import logo from './assets/images/1.png';
@@ -187,6 +190,9 @@ const Navigation = () => {
           </a>
           <a href="#testimonials" className="nav-link" onClick={() => scrollToSection('testimonials')}>
             Témoignages
+          </a>
+          <a href="/Nos-Gp" className="nav-link" onClick={() => scrollToSection('testimonials')}>
+            Gp
           </a>
           <a href="#contact" className="nav-link" onClick={() => scrollToSection('contact')}>
             Contact
@@ -979,9 +985,23 @@ const Footer = ({ countries, continents }) => {
     </footer>
   );
 };
-
 // Composant principal
 const App = () => {
+  return (
+    <Router>
+      <div id="app">
+        <Routes>
+          <Route path="/" element={<MainPage />} />
+          <Route path="/Nos-Gp" element={<Gp />} />
+          <Route path="/calendrier" element={<Calendrier />} />
+        </Routes>
+      </div>
+    </Router>
+  );
+};
+
+// Composant pour la page principale
+const MainPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedContinent, setSelectedContinent] = useState('');
   const [filteredCountries, setFilteredCountries] = useState([]);
@@ -1048,7 +1068,7 @@ const App = () => {
   };
 
   return (
-    <div id="app">
+    <>
       <ToastContainer
         position="top-right"
         autoClose={5000}
@@ -1093,6 +1113,17 @@ const App = () => {
         countries={countriesData}
         continents={continents}
       />
+    </>
+  );
+};
+
+// Composant pour la page GP (à personnaliser selon vos besoins)
+const GpPage = () => {
+  return (
+    <div>
+      <h1>Page GP</h1>
+      <p>Contenu de la page GP</p>
+      <Link to="/">Retour à l'accueil</Link>
     </div>
   );
 };
